@@ -9,7 +9,8 @@
   "authors": [
     {
       "name": "Muhammad Zamroni",
-      "email": "halo@matriphe.com"
+      "email": "halo@matriphe.com",
+      "homepage": "http://matriphe.com"
     }
   ],
   "require": {
