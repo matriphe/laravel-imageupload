@@ -1,0 +1,32 @@
+{
+  "name": "matriphe/imageupload",
+  "description": "Upload image using Laravel's build in function and resize it using Imagine library automatically.",
+  "keywords": [
+    "laravel", "image", "upload", "imagine"
+  ],
+  "type": "library",
+  "license":"MIT",
+  "authors": [
+    {
+      "name": "Muhammad Zamroni",
+      "email": "halo@matriphe.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0",
+    "illuminate/support": "4.2.*",
+    "imagine/imagine": "0.*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "4.*"
+  },
+  "autoload": {
+    "classmap": [
+      "src/migrations"
+    ],
+    "psr-0": {
+      "Matriphe\\Imageupload\\": "src/"
+    }
+  },
+  "minimum-stability": "stable"
+}
