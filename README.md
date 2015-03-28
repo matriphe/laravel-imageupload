@@ -43,3 +43,132 @@ After running this command, there will be `config/imageupload.php` and `resource
 ## Usage
 
 Just use the `Imageupload::upload($file)` function and it will take care of cropping and renaming. Of course, you can modify on the fly by passing parameter `Imageupload::upload($filesource, $newfilename, $dir)`.
+
+The return of the function is **array**.
+
+### Example
+```php
+if (Request::hasFile('file')) {
+    $result = Imageupload::upload(Request::file('file'));
+}
+```
+### Output
+```array
+Array
+(
+    [path] => /Users/matriphe/www/laravel/5.0/public/uploads/images
+    [dir] => uploads/images
+    [original_filename] => Xiaomi Media Invitation Final.png
+    [original_filepath] => /Users/matriphe/www/laravel/5.0/public/uploads/images/424370e1611a171b99b5c6ec20aaeedf.png
+    [original_extension] => png
+    [original_filesize] => 129840
+    [original_mime] => image/png
+    [filename] => 424370e1611a171b99b5c6ec20aaeedf.png
+    [original_filedir] => uploads/images/424370e1611a171b99b5c6ec20aaeedf.png
+    [basename] => 424370e1611a171b99b5c6ec20aaeedf
+    [original_width] => 1281
+    [original_height] => 816
+    [dimensions] => Array
+        (
+            [square50] => Array
+                (
+                    [path] => /Users/matriphe/www/laravel/5.0/public/uploads/images
+                    [dir] => uploads/images
+                    [filename] => 424370e1611a171b99b5c6ec20aaeedf_square50.png
+                    [filepath] => /Users/matriphe/www/laravel/5.0/public/uploads/images/424370e1611a171b99b5c6ec20aaeedf_square50.png
+                    [filedir] => uploads/images/424370e1611a171b99b5c6ec20aaeedf_square50.png
+                    [width] => 50
+                    [height] => 50
+                    [filesize] => 3683
+                )
+
+            [square100] => Array
+                (
+                    [path] => /Users/matriphe/www/laravel/5.0/public/uploads/images
+                    [dir] => uploads/images
+                    [filename] => 424370e1611a171b99b5c6ec20aaeedf_square100.png
+                    [filepath] => /Users/matriphe/www/laravel/5.0/public/uploads/images/424370e1611a171b99b5c6ec20aaeedf_square100.png
+                    [filedir] => uploads/images/424370e1611a171b99b5c6ec20aaeedf_square100.png
+                    [width] => 100
+                    [height] => 100
+                    [filesize] => 10734
+                )
+
+            [square200] => Array
+                (
+                    [path] => /Users/matriphe/www/laravel/5.0/public/uploads/images
+                    [dir] => uploads/images
+                    [filename] => 424370e1611a171b99b5c6ec20aaeedf_square200.png
+                    [filepath] => /Users/matriphe/www/laravel/5.0/public/uploads/images/424370e1611a171b99b5c6ec20aaeedf_square200.png
+                    [filedir] => uploads/images/424370e1611a171b99b5c6ec20aaeedf_square200.png
+                    [width] => 200
+                    [height] => 200
+                    [filesize] => 35609
+                )
+
+            [square400] => Array
+                (
+                    [path] => /Users/matriphe/www/laravel/5.0/public/uploads/images
+                    [dir] => uploads/images
+                    [filename] => 424370e1611a171b99b5c6ec20aaeedf_square400.png
+                    [filepath] => /Users/matriphe/www/laravel/5.0/public/uploads/images/424370e1611a171b99b5c6ec20aaeedf_square400.png
+                    [filedir] => uploads/images/424370e1611a171b99b5c6ec20aaeedf_square400.png
+                    [width] => 400
+                    [height] => 400
+                    [filesize] => 125267
+                )
+
+            [size50] => Array
+                (
+                    [path] => /Users/matriphe/www/laravel/5.0/public/uploads/images
+                    [dir] => uploads/images
+                    [filename] => 424370e1611a171b99b5c6ec20aaeedf_size50.png
+                    [filepath] => /Users/matriphe/www/laravel/5.0/public/uploads/images/424370e1611a171b99b5c6ec20aaeedf_size50.png
+                    [filedir] => uploads/images/424370e1611a171b99b5c6ec20aaeedf_size50.png
+                    [width] => 50
+                    [height] => 32
+                    [filesize] => 2375
+                )
+
+            [size100] => Array
+                (
+                    [path] => /Users/matriphe/www/laravel/5.0/public/uploads/images
+                    [dir] => uploads/images
+                    [filename] => 424370e1611a171b99b5c6ec20aaeedf_size100.png
+                    [filepath] => /Users/matriphe/www/laravel/5.0/public/uploads/images/424370e1611a171b99b5c6ec20aaeedf_size100.png
+                    [filedir] => uploads/images/424370e1611a171b99b5c6ec20aaeedf_size100.png
+                    [width] => 100
+                    [height] => 64
+                    [filesize] => 6700
+                )
+
+            [size200] => Array
+                (
+                    [path] => /Users/matriphe/www/laravel/5.0/public/uploads/images
+                    [dir] => uploads/images
+                    [filename] => 424370e1611a171b99b5c6ec20aaeedf_size200.png
+                    [filepath] => /Users/matriphe/www/laravel/5.0/public/uploads/images/424370e1611a171b99b5c6ec20aaeedf_size200.png
+                    [filedir] => uploads/images/424370e1611a171b99b5c6ec20aaeedf_size200.png
+                    [width] => 200
+                    [height] => 127
+                    [filesize] => 21432
+                )
+
+            [size400] => Array
+                (
+                    [path] => /Users/matriphe/www/laravel/5.0/public/uploads/images
+                    [dir] => uploads/images
+                    [filename] => 424370e1611a171b99b5c6ec20aaeedf_size400.png
+                    [filepath] => /Users/matriphe/www/laravel/5.0/public/uploads/images/424370e1611a171b99b5c6ec20aaeedf_size400.png
+                    [filedir] => uploads/images/424370e1611a171b99b5c6ec20aaeedf_size400.png
+                    [width] => 400
+                    [height] => 255
+                    [filesize] => 76487
+                )
+
+        )
+
+)
+```
+
+

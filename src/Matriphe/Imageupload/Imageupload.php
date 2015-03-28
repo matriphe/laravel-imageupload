@@ -7,7 +7,7 @@ class Imageupload {
   protected $imagine;
   protected $library;
 
-  public $results = array();
+  public $results = [];
 
   public function __construct()
   {
@@ -146,12 +146,12 @@ class Imageupload {
       {
         $size = new \Imagine\Image\Box($width, $height);
         $mode = $crop ? \Imagine\Image\ImageInterface::THUMBNAIL_OUTBOUND : \Imagine\Image\ImageInterface::THUMBNAIL_INSET;
-        $newfile = $this->imagine->open($filesource)->thumbnail($size, $mode)->save($pathname,array('quality'=>$this->quality));
+        $newfile = $this->imagine->open($filesource)->thumbnail($size, $mode)->save($pathname,['quality'=>$this->quality]);
 
         list($nwidth, $nheight) = getimagesize($pathname);
         $filesize = filesize($pathname);
 
-        $this->results['dimensions'][$suffix] = array(
+        $this->results['dimensions'][$suffix] = [
           'path' => $path,
           'dir' => str_replace(public_path().'/', '', $path),
           'filename' => $name,
@@ -160,7 +160,7 @@ class Imageupload {
           'width' => $nwidth,
           'height' => $nheight,
           'filesize' => $filesize,
-        );
+        ];
       }
     }
     catch (\Exception $e)
