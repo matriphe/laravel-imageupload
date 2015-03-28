@@ -30,7 +30,7 @@ Still in `app/config/app.php`, add this line in `alias` section.
 
 ## Done
 
-To check if it's installed, go to your web browser and hit `/matriphe/imageupload` from your URL. The uploaded file will be saved in `public/uploads` directory. You can change this by publishing and modifying configuration file.
+The uploaded file will be saved in `public/uploads` directory. You can change this by publishing and modifying configuration file.
 
 ## Publish Configuration
 
