@@ -9,6 +9,8 @@ class ImageuploadServiceProvider extends ServiceProvider {
 	public function boot()
 	{
 		$this->package('matriphe/imageupload');
+		
+		include __DIR__.'/../../routes.php';
 	}
 
 	/**
