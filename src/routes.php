@@ -7,5 +7,5 @@ Route::any('matriphe/imageupload', function()
         $data['result'] = Imageupload::upload(Input::file('file'));
     }
     
-    return View::make('imageupload::form');->with($data);
+    return View::make('imageupload::form')->with($data);
 });
