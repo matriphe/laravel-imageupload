@@ -10,11 +10,11 @@ Works with Laravel 4 and Laravel 5. For Laravel 5, [please refer to version 5](h
 
 Open `composer.json` and require this line below.
 ```json
-"matriphe/imageupload": "~4.2"
+"matriphe/imageupload": "dev-laravel42"
 ```
 Or you can run this command from your project directory.
 ```bash
-composer require "matriphe/format:~4.2"
+composer require "matriphe/format:dev-laravel42"
 ```
 
 ### Laravel Installation
