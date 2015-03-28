@@ -1,5 +1,6 @@
 <?php
 
-Route::any('matriphe/imageupload', function() {
-    return 'Hello';
+Route::any('matriphe/imageupload', function() 
+{
+    return view('imageupload::form');
 });

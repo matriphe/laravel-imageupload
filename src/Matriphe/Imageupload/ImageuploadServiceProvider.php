@@ -9,6 +9,12 @@ class ImageuploadServiceProvider extends ServiceProvider {
 	public function boot()
 	{
 		include __DIR__.'/../../routes.php';
+		
+		$this->loadViewsFrom(__DIR__.'/../../views', 'imageupload');
+
+        $this->publishes([
+            __DIR__.'/../../views' => base_path('resources/views/vendor/imageupload'),
+        ]);
 	}
 
 	/**
@@ -19,9 +25,9 @@ class ImageuploadServiceProvider extends ServiceProvider {
 	public function register()
 	{
 		$this->app['imageupload'] = $this->app->share(function($app)
-    {
-      return new Imageupload();
-    });
+        {
+            return new Imageupload();
+        });
 	}
 
 	/**
