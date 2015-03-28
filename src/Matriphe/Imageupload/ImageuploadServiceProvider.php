@@ -11,9 +11,11 @@ class ImageuploadServiceProvider extends ServiceProvider {
 		include __DIR__.'/../../routes.php';
 		
 		$this->loadViewsFrom(__DIR__.'/../../views', 'imageupload');
+		$this->mergeConfigFrom( __DIR__.'/../../config/config.php', 'imageupload');
 
         $this->publishes([
             __DIR__.'/../../views' => base_path('resources/views/vendor/imageupload'),
+            __DIR__.'/../../config/config.php' => config_path('imageupload.php'),
         ]);
 	}
 
