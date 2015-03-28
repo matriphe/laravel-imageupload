@@ -21,6 +21,10 @@
   "require-dev": {
     "phpunit/phpunit": "4.*"
   },
+  "suggest": {
+    "league/flysystem-aws-s3-v2": "Amazon S3 storage driver",
+    "league/flysystem-rackspace": "Rackspace Cloud Storage driver"
+  },
   "autoload": {
     "classmap": [
       "src/migrations"

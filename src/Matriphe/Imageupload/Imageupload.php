@@ -13,12 +13,12 @@ class Imageupload {
   {
     if (!$this->imagine)
     {
-      $this->library = Config::get('imageupload::library','gd');
-      $this->quality = Config::get('imageupload::quality', 90);
-      $this->uploadpath = Config::get('imageupload::path', public_path().'/uploads/images');
-      $this->newfilename = Config::get('imageupload::newfilename', 'original');
-      $this->dimensions = Config::get('imageupload::dimensions');
-      $this->suffix = Config::get('imageupload::suffix',true);
+      $this->library = Config::get('imageupload.library','gd');
+      $this->quality = Config::get('imageupload.quality', 90);
+      $this->uploadpath = Config::get('imageupload.path', public_path().'/uploads/images');
+      $this->newfilename = Config::get('imageupload.newfilename', 'original');
+      $this->dimensions = Config::get('imageupload.dimensions');
+      $this->suffix = Config::get('imageupload.suffix',true);
 
       // Now create the instance
       if     ($this->library == 'imagick') $this->imagine = new \Imagine\Imagick\Imagine();
