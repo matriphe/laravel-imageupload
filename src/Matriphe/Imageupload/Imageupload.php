@@ -1,6 +1,9 @@
 <?php namespace Matriphe\Imageupload;
 
-use Config, File, Log, Str;
+use Config;
+use File;
+use Log;
+use Illuminate\Support\Str;
 
 class Imageupload {
 
