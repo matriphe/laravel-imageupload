@@ -67,7 +67,7 @@ class Imageupload {
         $this->results['original_extension'] = $filesource->getClientOriginalExtension();
         $this->results['original_filesize'] = $filesource->getSize();
         $this->results['original_mime'] = $filesource->getMimeType();
-
+        
         switch ($this->newfilename)
         {
           case 'hash':
