@@ -8,12 +8,5 @@ class ImageuploadFacade extends Facade {
     {
         return 'imageupload';
     }
-    
-    public function register()
-    {
-        $this->app->bind('imageupload', function ($app) {
-            return new Imageupload;
-        });
-    }  
 
 }
