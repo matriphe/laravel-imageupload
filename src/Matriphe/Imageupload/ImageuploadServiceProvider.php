@@ -1,6 +1,7 @@
 <?php namespace Matriphe\Imageupload;
 
 use Illuminate\Support\ServiceProvider;
+use Matriphe\Imageupload\Imageupload;
 
 class ImageuploadServiceProvider extends ServiceProvider {
 
