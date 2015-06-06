@@ -14,7 +14,7 @@ Open `composer.json` and require this line below.
 ```
 Or you can run this command from your project directory.
 ```bash
-composer require "matriphe/format:dev-laravel42"
+composer require "matriphe/imageupload:dev-laravel42"
 ```
 
 ### Laravel Installation
