@@ -36,7 +36,8 @@ The uploaded file will be saved in `public/uploads` directory. You can change th
 
 To control the configuration, you have to *publish* the configuration file.
 ```bash
-php artisan vendor:publish
+ php artisan config:publish matriphe/imageupload
+ php artisan view:publish matriphe/imageupload
 ```
 After running this command, there will be `config/imageupload.php` and `resources/views/vendor/imageupload/form.blade.php` files.
 
