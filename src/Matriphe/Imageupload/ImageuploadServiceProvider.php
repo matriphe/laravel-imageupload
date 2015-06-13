@@ -8,7 +8,9 @@ class ImageuploadServiceProvider extends ServiceProvider {
 
 	public function boot()
 	{
-		include __DIR__.'/../../routes.php';
+		if (! $this->app->routesAreCached()) {
+            require __DIR__.'/../../routes.php';
+        }
 		
 		$this->loadViewsFrom(__DIR__.'/../../views', 'imageupload');
 		$this->mergeConfigFrom( __DIR__.'/../../config/config.php', 'imageupload');
