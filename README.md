@@ -1,20 +1,22 @@
 # Laravel Imageupload
 
-Upload image using Laravel's build in function and resize it using Imagine library automatically.
+Upload image using Laravel's build in function and resize it using [Imagine library](https://imagine.readthedocs.org/en/latest/) automatically.
 
 ## Compatibility
 
-Works with Laravel 4 and Laravel 5. For Laravel 5, [please refer to version 5](https://github.com/matriphe/laravel-imageupload/blob/laravel42/README.md).
+* [Laravel 5.1](https://github.com/matriphe/laravel-imageupload/blob/laravel51/README.md)
+* [Laravel 5.0](https://github.com/matriphe/laravel-imageupload/blob/laravel50/README.md)
+* Laravel 4.2
 
 ## Installation
 
 Open `composer.json` and require this line below.
 ```json
-"matriphe/imageupload": "dev-laravel42"
+"matriphe/imageupload": "4.2.*"
 ```
 Or you can run this command from your project directory.
 ```bash
-composer require "matriphe/imageupload:dev-laravel42"
+composer require "matriphe/imageupload:4.2.*"
 ```
 
 ### Laravel Installation
@@ -28,10 +30,6 @@ Still in `app/config/app.php`, add this line in `alias` section.
 'Imageupload' => 'Matriphe\Imageupload\ImageuploadFacade'
 ```
 
-## Done
-
-The uploaded file will be saved in `public/uploads` directory. You can change this by publishing and modifying configuration file.
-
 ## Publish Configuration
 
 To control the configuration, you have to *publish* the configuration file.
@@ -40,6 +38,10 @@ To control the configuration, you have to *publish* the configuration file.
  php artisan view:publish matriphe/imageupload
 ```
 After running this command, there will be `config/imageupload.php` and `resources/views/vendor/imageupload/form.blade.php` files.
+
+## Done
+
+The uploaded file will be saved in `public/uploads` directory. You can change this by publishing and modifying configuration file.
 
 ## Usage
 
@@ -57,10 +59,10 @@ if (Request::hasFile('file')) {
 ```array
 Array
 (
-    [path] => /Users/matriphe/www/laravel/5.0/public/uploads/images
+    [path] => /Users/matriphe/www/laravel/4.2/public/uploads/images
     [dir] => uploads/images
     [original_filename] => Xiaomi Media Invitation Final.png
-    [original_filepath] => /Users/matriphe/www/laravel/5.0/public/uploads/images/424370e1611a171b99b5c6ec20aaeedf.png
+    [original_filepath] => /Users/matriphe/www/laravel/4.2/public/uploads/images/424370e1611a171b99b5c6ec20aaeedf.png
     [original_extension] => png
     [original_filesize] => 129840
     [original_mime] => image/png
@@ -73,10 +75,10 @@ Array
         (
             [square50] => Array
                 (
-                    [path] => /Users/matriphe/www/laravel/5.0/public/uploads/images
+                    [path] => /Users/matriphe/www/laravel/4.2/public/uploads/images
                     [dir] => uploads/images
                     [filename] => 424370e1611a171b99b5c6ec20aaeedf_square50.png
-                    [filepath] => /Users/matriphe/www/laravel/5.0/public/uploads/images/424370e1611a171b99b5c6ec20aaeedf_square50.png
+                    [filepath] => /Users/matriphe/www/laravel/4.2/public/uploads/images/424370e1611a171b99b5c6ec20aaeedf_square50.png
                     [filedir] => uploads/images/424370e1611a171b99b5c6ec20aaeedf_square50.png
                     [width] => 50
                     [height] => 50
@@ -85,10 +87,10 @@ Array
 
             [square100] => Array
                 (
-                    [path] => /Users/matriphe/www/laravel/5.0/public/uploads/images
+                    [path] => /Users/matriphe/www/laravel/4.2/public/uploads/images
                     [dir] => uploads/images
                     [filename] => 424370e1611a171b99b5c6ec20aaeedf_square100.png
-                    [filepath] => /Users/matriphe/www/laravel/5.0/public/uploads/images/424370e1611a171b99b5c6ec20aaeedf_square100.png
+                    [filepath] => /Users/matriphe/www/laravel/4.2/public/uploads/images/424370e1611a171b99b5c6ec20aaeedf_square100.png
                     [filedir] => uploads/images/424370e1611a171b99b5c6ec20aaeedf_square100.png
                     [width] => 100
                     [height] => 100
@@ -97,10 +99,10 @@ Array
 
             [square200] => Array
                 (
-                    [path] => /Users/matriphe/www/laravel/5.0/public/uploads/images
+                    [path] => /Users/matriphe/www/laravel/4.2/public/uploads/images
                     [dir] => uploads/images
                     [filename] => 424370e1611a171b99b5c6ec20aaeedf_square200.png
-                    [filepath] => /Users/matriphe/www/laravel/5.0/public/uploads/images/424370e1611a171b99b5c6ec20aaeedf_square200.png
+                    [filepath] => /Users/matriphe/www/laravel/4.2/public/uploads/images/424370e1611a171b99b5c6ec20aaeedf_square200.png
                     [filedir] => uploads/images/424370e1611a171b99b5c6ec20aaeedf_square200.png
                     [width] => 200
                     [height] => 200
@@ -109,10 +111,10 @@ Array
 
             [square400] => Array
                 (
-                    [path] => /Users/matriphe/www/laravel/5.0/public/uploads/images
+                    [path] => /Users/matriphe/www/laravel/4.2/public/uploads/images
                     [dir] => uploads/images
                     [filename] => 424370e1611a171b99b5c6ec20aaeedf_square400.png
-                    [filepath] => /Users/matriphe/www/laravel/5.0/public/uploads/images/424370e1611a171b99b5c6ec20aaeedf_square400.png
+                    [filepath] => /Users/matriphe/www/laravel/4.2/public/uploads/images/424370e1611a171b99b5c6ec20aaeedf_square400.png
                     [filedir] => uploads/images/424370e1611a171b99b5c6ec20aaeedf_square400.png
                     [width] => 400
                     [height] => 400
@@ -121,10 +123,10 @@ Array
 
             [size50] => Array
                 (
-                    [path] => /Users/matriphe/www/laravel/5.0/public/uploads/images
+                    [path] => /Users/matriphe/www/laravel/4.2/public/uploads/images
                     [dir] => uploads/images
                     [filename] => 424370e1611a171b99b5c6ec20aaeedf_size50.png
-                    [filepath] => /Users/matriphe/www/laravel/5.0/public/uploads/images/424370e1611a171b99b5c6ec20aaeedf_size50.png
+                    [filepath] => /Users/matriphe/www/laravel/4.2/public/uploads/images/424370e1611a171b99b5c6ec20aaeedf_size50.png
                     [filedir] => uploads/images/424370e1611a171b99b5c6ec20aaeedf_size50.png
                     [width] => 50
                     [height] => 32
@@ -133,10 +135,10 @@ Array
 
             [size100] => Array
                 (
-                    [path] => /Users/matriphe/www/laravel/5.0/public/uploads/images
+                    [path] => /Users/matriphe/www/laravel/4.2/public/uploads/images
                     [dir] => uploads/images
                     [filename] => 424370e1611a171b99b5c6ec20aaeedf_size100.png
-                    [filepath] => /Users/matriphe/www/laravel/5.0/public/uploads/images/424370e1611a171b99b5c6ec20aaeedf_size100.png
+                    [filepath] => /Users/matriphe/www/laravel/4.2/public/uploads/images/424370e1611a171b99b5c6ec20aaeedf_size100.png
                     [filedir] => uploads/images/424370e1611a171b99b5c6ec20aaeedf_size100.png
                     [width] => 100
                     [height] => 64
@@ -145,10 +147,10 @@ Array
 
             [size200] => Array
                 (
-                    [path] => /Users/matriphe/www/laravel/5.0/public/uploads/images
+                    [path] => /Users/matriphe/www/laravel/4.2/public/uploads/images
                     [dir] => uploads/images
                     [filename] => 424370e1611a171b99b5c6ec20aaeedf_size200.png
-                    [filepath] => /Users/matriphe/www/laravel/5.0/public/uploads/images/424370e1611a171b99b5c6ec20aaeedf_size200.png
+                    [filepath] => /Users/matriphe/www/laravel/4.2/public/uploads/images/424370e1611a171b99b5c6ec20aaeedf_size200.png
                     [filedir] => uploads/images/424370e1611a171b99b5c6ec20aaeedf_size200.png
                     [width] => 200
                     [height] => 127
@@ -157,10 +159,10 @@ Array
 
             [size400] => Array
                 (
-                    [path] => /Users/matriphe/www/laravel/5.0/public/uploads/images
+                    [path] => /Users/matriphe/www/laravel/4.2/public/uploads/images
                     [dir] => uploads/images
                     [filename] => 424370e1611a171b99b5c6ec20aaeedf_size400.png
-                    [filepath] => /Users/matriphe/www/laravel/5.0/public/uploads/images/424370e1611a171b99b5c6ec20aaeedf_size400.png
+                    [filepath] => /Users/matriphe/www/laravel/4.2/public/uploads/images/424370e1611a171b99b5c6ec20aaeedf_size400.png
                     [filedir] => uploads/images/424370e1611a171b99b5c6ec20aaeedf_size400.png
                     [width] => 400
                     [height] => 255
@@ -171,5 +173,3 @@ Array
 
 )
 ```
-
-
