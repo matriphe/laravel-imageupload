@@ -12,11 +12,11 @@ Upload image using Laravel's build in function and resize it using [Imagine libr
 
 Open `composer.json` and require this line below.
 ```json
-"matriphe/imageupload": "dev-master"
+"matriphe/imageupload": "5.0.*"
 ```
 Or you can run this command from your project directory.
 ```bash
-composer require "matriphe/format:dev-master"
+composer require "matriphe/format:5.0.*"
 ```
 
 ### Laravel Installation
