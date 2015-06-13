@@ -1,10 +1,12 @@
 # Laravel Imageupload
 
-Upload image using Laravel's build in function and resize it using Imagine library automatically.
+Upload image using Laravel's build in function and resize it using [Imagine library](https://imagine.readthedocs.org/en/latest/) automatically.
 
 ## Compatibility
 
-Works with Laravel 4 and Laravel 5. For Laravel 4.2, [please refer to version 4.2](https://github.com/matriphe/laravel-imageupload/blob/laravel42/README.md).
+* [Laravel 5.1](https://github.com/matriphe/laravel-imageupload/blob/laravel51/README.md)
+* Laravel 5.0
+* [Laravel 4.2](https://github.com/matriphe/laravel-imageupload/blob/laravel42/README.md)
 
 ## Installation
 
