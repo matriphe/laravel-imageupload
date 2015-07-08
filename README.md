@@ -16,7 +16,7 @@ Open `composer.json` and require this line below.
 ```
 Or you can run this command from your project directory.
 ```bash
-composer require "matriphe/format:5.0.*"
+composer require "matriphe/imageupload:5.0.*"
 ```
 
 ### Laravel Installation
