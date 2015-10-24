@@ -36,13 +36,58 @@ To control the configuration, you have to *publish* the configuration file.
 ```bash
 php artisan vendor:publish
 ```
-After running this command, there will be `config/imageupload.php` and `resources/views/vendor/imageupload/form.blade.php` files.
+After running this command, there will be `config/imageupload.php` file.
 
-## Done
+## Test It
 
-After publishing the configuration and views, you can check by hitting `http://yoururl/matriphe/imageupload` to see if the installation is perfect.
+After publishing the configuration file, you can set up a route and view.
 
 The uploaded file will be saved in `public/uploads` directory. Of course, you can change this by publishing and modifying configuration file.
+
+### Route Example
+
+```php
+<?php
+// routes.php
+...
+Route::any('matriphe/imageupload', function() 
+{
+    $data = [];
+    
+    echo config('imageupload.library');
+    
+    if (Request::hasFile('file')) {
+        $data['result'] = Imageupload::upload(Request::file('file'));
+    }
+    
+    return view('form.blade.php')->with($data);
+});
+```
+
+### View
+
+Add this in your views directory.
+
+```html
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Imageupload</title>
+    </head>
+    <body>
+        <form action="{{ URL::current() }}" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="_token" value="{{ Session::token() }}">
+            <pre>{{ (!empty($result) ? print_r($result, 1) : '') }}</pre>
+            <div>
+                <input type="file" name="file">
+            </div>
+            <div>
+                <button type="submit">Upload!</button>
+            </div>
+        </form>
+    </body>
+</html>
+```
 
 ## Usage
 
