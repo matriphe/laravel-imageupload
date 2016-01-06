@@ -22,6 +22,7 @@ class Imageupload {
       $this->newfilename = Config::get('imageupload.newfilename', 'original');
       $this->dimensions = Config::get('imageupload.dimensions');
       $this->suffix = Config::get('imageupload.suffix',true);
+      $this->exif = Config::get('imageupload.exif', false);
 
       // Now create the instance
       if     ($this->library == 'imagick') $this->imagine = new \Imagine\Imagick\Imagine();
@@ -70,6 +71,8 @@ class Imageupload {
         $this->results['original_extension'] = $filesource->getClientOriginalExtension();
         $this->results['original_filesize'] = $filesource->getSize();
         $this->results['original_mime'] = $filesource->getMimeType();
+        $this->results['exif'] = $this->getExif($filesource->getRealPath());
+        
         
         switch ($this->newfilename)
         {
@@ -170,5 +173,28 @@ class Imageupload {
     {
 
     }
+  }
+  
+  protected function getExif($filesourcepath)
+  {
+      $exifdata = null;
+      
+      if ($this->exif)
+      {
+          try
+          {
+            $image = $this->imagine
+                ->setMetadataReader(new \Imagine\Image\Metadata\ExifMetadataReader())
+                ->open($filesourcepath);
+            $metadata = $image->metadata();
+            $exifdata = $metadata->toArray();
+          } 
+          catch (\Exception $e)
+          {
+              
+          }
+      }
+      
+      return $exifdata;
   }
 }

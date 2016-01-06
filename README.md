@@ -112,6 +112,37 @@ Array
     [original_extension] => png
     [original_filesize] => 129840
     [original_mime] => image/png
+    [exif] => Array
+        (
+            [filepath] => /private/var/tmp/phpa7jJLf
+            [uri] => /private/var/tmp/phpa7jJLf
+            [exif.ExposureTime] => 1/539
+            [exif.ISOSpeedRatings] => 100
+            [exif.ExifVersion] => 0220
+            [exif.DateTimeOriginal] => 2015:10:19 15:22:31
+            [exif.DateTimeDigitized] => 2002:12:08 12:00:00
+            [exif.ComponentsConfiguration] => 
+            [exif.ShutterSpeedValue] => 9074/1000
+            [exif.ApertureValue] => 227/100
+            [exif.Flash] => 16
+            [exif.FocalLength] => 3850/1000
+            [exif.MakerNote] => �C
+            [exif.FlashPixVersion] => 0100
+            [exif.ColorSpace] => 1
+            [exif.ExifImageWidth] => 3264
+            [exif.ExifImageLength] => 1836
+            [exif.InteroperabilityOffset] => 458
+            [exif.ExposureIndex] => 166/1
+            [exif.GainControl] => 1
+            [ifd0.Make] => Xiaomi
+            [ifd0.Model] => 2014817
+            [ifd0.XResolution] => 72/1
+            [ifd0.YResolution] => 72/1
+            [ifd0.ResolutionUnit] => 2
+            [ifd0.YCbCrPositioning] => 1
+            [ifd0.Exif_IFD_Pointer] => 142
+            [ifd0.GPS_IFD_Pointer] => 488
+        )
     [filename] => 424370e1611a171b99b5c6ec20aaeedf.png
     [original_filedir] => uploads/images/424370e1611a171b99b5c6ec20aaeedf.png
     [basename] => 424370e1611a171b99b5c6ec20aaeedf
