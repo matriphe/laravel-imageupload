@@ -7,7 +7,7 @@ return array(
    *
    * Options: gd (default), imagick, gmagick
    */
-  'library' => 'gd',
+  'library' => env('IMAGEUPLOAD_LIBRARY', 'gd'),
 
   /*
    * Quality for JPEG type.
@@ -61,4 +61,14 @@ return array(
     *     - FALSE: square50/newname.png, size100/newname.jpg
     */
    'suffix' => true,
+   
+   /*
+    * Get the EXIF data. PHP must be compiled in with --enable-exif to use this method. 
+    * Windows users must also have the mbstring extension enabled.
+    *
+    * Example:
+    *     - TRUE: get the exif data if exists
+    *     - FALSE (default): ignore exif data
+    */
+   'exif' => env('IMAGEUPLOAD_EXIF', false),
 );
