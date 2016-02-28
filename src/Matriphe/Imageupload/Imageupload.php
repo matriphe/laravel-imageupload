@@ -86,7 +86,7 @@ class Imageupload {
             $this->results['filename'] = strtotime('now').'.'.$this->results['original_extension'];
             break;
           case 'custom':
-            $this->results['filename'] = (!empty($newfilename) ? $newfilename.'.'.$this->results['original_extension'] : $this->results['original_filename'].'.'.$this->results['original_extension']);
+            $this->results['filename'] = (!empty($newfilename) ? $newfilename.'.'.$this->results['original_extension'] : $this->results['original_filename']);
             break;
           default:
             $this->results['filename']= $this->results['original_filename'];
