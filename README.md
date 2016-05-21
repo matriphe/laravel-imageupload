@@ -4,7 +4,8 @@ Upload image using Laravel's build in function and resize it using [Imagine libr
 
 ## Compatibility
 
-* Laravel 5.1 (Latest)
+* Laravel 5.2 (Latest)
+* Laravel 5.1 (LTS)
 * [Laravel 5.0](https://github.com/matriphe/laravel-imageupload/blob/laravel50/README.md)
 * [Laravel 4.2](https://github.com/matriphe/laravel-imageupload/blob/laravel42/README.md)
 
@@ -12,11 +13,11 @@ Upload image using Laravel's build in function and resize it using [Imagine libr
 
 Open `composer.json` and require this line below.
 ```json
-"matriphe/imageupload": "5.1.*"
+"matriphe/imageupload": "^5.0"
 ```
 Or you can run this command from your project directory.
 ```bash
-composer require "matriphe/imageupload:5.1.*"
+composer require "matriphe/imageupload"
 ```
 
 ### Laravel Installation
