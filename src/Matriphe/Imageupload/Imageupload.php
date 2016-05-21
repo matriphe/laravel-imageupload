@@ -1,9 +1,9 @@
 <?php namespace Matriphe\Imageupload;
 
-use Config;
-use File;
-use Log;
-use Illuminate\Support\Str;
+use \Config;
+use \File;
+use \Log;
+use \Illuminate\Support\Str;
 
 class Imageupload {
 
@@ -55,12 +55,22 @@ class Imageupload {
       }
     }
   }
+  
+  private function checkIsImage($filesource)
+  {
+    if (substr($filesource->getMimeType(), 0, 5) == 'image') {
+        return true;
+    } else {
+        return false;
+    }
+  }
 
   public function upload($filesource, $newfilename=null, $dir=null)
   {
     $isPathOk = $this->checkPathIsOk($this->uploadpath,$dir);
+    $isImage = $this->checkIsImage($filesource);
 
-    if ($isPathOk)
+    if ($isPathOk && $filesource)
     {
       if ($filesource)
       {
