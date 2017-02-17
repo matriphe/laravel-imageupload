@@ -4,7 +4,7 @@ Upload image using Laravel's build in function and resize it using [Imagine libr
 
 ## Compatibility
 
-* Laravel 5.2 (Latest)
+* Laravel 5.4 (Latest)
 * Laravel 5.1 (LTS)
 * [Laravel 5.0](https://github.com/matriphe/laravel-imageupload/blob/laravel50/README.md)
 * [Laravel 4.2](https://github.com/matriphe/laravel-imageupload/blob/laravel42/README.md)
