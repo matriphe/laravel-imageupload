@@ -22,7 +22,7 @@ class ImageuploadServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		$this->app['imageupload'] = $this->app->share(function($app)
+        $this->app->singleton('imageupload', function($app)
         {
             return new Imageupload();
         });
