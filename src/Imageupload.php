@@ -6,12 +6,7 @@ use Config;
 use Exception;
 use File;
 use Illuminate\Support\Str;
-use Imagine\Gd\Imagine as Gd;
-use Imagine\Gmagick\Imagine as Gmagick;
-use Imagine\Image\Box;
-use Imagine\Image\ImageInterface;
-use Imagine\Image\Metadata\ExifMetadataReader;
-use Imagine\Imagick\Imagine as Imagick;
+use Intervention\Image\ImageManager;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class Imageupload
@@ -50,7 +45,6 @@ class Imageupload
     public function __construct()
     {
         $this->prepareConfig();
-        $this->prepareLibrary();
     }
 
     /**
@@ -106,28 +100,20 @@ class Imageupload
     }
 
     /**
-     * Prepare and set imagine library based on config.
-     *
+     * Get image processing library (Intervention).
+     * 
      * @access private
+     * @return ImageManager
      */
-    private function prepareLibrary()
+    private function getImageLibrary()
     {
-        if (! empty($this->library) || ! empty($this->imagine)) {
-            return $this;
+        $driver = $this->library;
+        
+        if (! in_array($this->library, ['gd', 'imagick'])) {
+            $driver = 'gd';
         }
-
-        switch ($this->library) {
-            case 'imagick':
-                $this->imagine = new Imagick();
-                break;
-            case 'gmagick':
-                $this->imagine = new Gmagick();
-                break;
-            default:
-                $this->imagine = new Gd();
-            }
-
-        return $this;
+        
+        return (new ImageManager(compact('driver')));
     }
 
     /**
@@ -140,7 +126,7 @@ class Imageupload
         if (empty($this->dimensions) || ! is_array($this->dimensions)) {
             return $this;
         }
-
+        
         $sourceFilePath = $this->results['original_filepath'];
 
         foreach ($this->dimensions as $name => $dimension) {
@@ -153,8 +139,8 @@ class Imageupload
             $height = (! empty($height) ? $height : $width);
             $crop = (isset($crop) ? $crop : false);
 
-            $resized = $this->resize($sourceFilePath, $name, $width, $height, $crop);
-
+            $resized = $this->resizeImage($sourceFilePath, $name, $width, $height, $crop);
+            
             if (empty($resized)) {
                 continue;
             }
@@ -377,7 +363,7 @@ class Imageupload
             $resizedBasename = $this->results['basename'];
         }
 
-        $resizedBasename .= $this->results['original_extension'];
+        $resizedBasename .= '.'.$this->results['original_extension'];
 
         return implode('/', [$resizedPath, $resizedBasename]);
     }
@@ -393,7 +379,7 @@ class Imageupload
      * @param  bool   $crop           (default: false)
      * @return array
      */
-    private function resize($sourceFilePath, $name, $width, $height = null, $crop = false)
+    private function resizeImage($sourceFilePath, $name, $width, $height = null, $crop = false)
     {
         if (! $height) {
             $height = $width;
@@ -403,23 +389,29 @@ class Imageupload
 
         try {
             $isPathOk = $this->checkPathIsOk(dirname($resizedFilePath));
-
+            
             if (! $isPathOk) {
                 return [];
             }
-
-            $size = new Box($width, $height);
-
-            $mode = ImageInterface::THUMBNAIL_INSET;
-
+            
+            $intervention = $this->getImageLibrary();
+            $image = $intervention->make($sourceFilePath);
+            
             if ($crop) {
-                $mode = ImageInterface::THUMBNAIL_OUTBOUND;
-            }
-
-            $newfile = $this->imagine->open($sourceFilePath)
-                ->thumbnail($size, $mode)
-                ->save($resizedFilePath, ['quality' => $this->quality]);
-
+                $width = ($height < $width ? $height : $width);
+                $height = $width;
+                
+                $image->fit($width, $height, function($image) {
+                    $image->upsize();
+                });
+            } else {
+                $image->resize($width, $height, function($image) {
+                    $image->aspectRatio();
+                });
+            }            
+            
+            $image->save($resizedFilePath, $this->quality);
+            
             list($width, $height) = getimagesize($resizedFilePath);
             $filesize = filesize($resizedFilePath);
 
