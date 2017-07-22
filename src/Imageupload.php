@@ -24,7 +24,6 @@ class Imageupload
      */
     public $results = [
         'original_filename' => null,
-        'original_basename' => null,
         'original_filepath' => null,
         'original_filedir' => null,
         'original_extension' => null,
