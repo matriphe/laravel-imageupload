@@ -24,6 +24,7 @@ class Imageupload
      */
     public $results = [
         'original_filename' => null,
+        'original_basename' => null,
         'original_filepath' => null,
         'original_filedir' => null,
         'original_extension' => null,
@@ -328,7 +329,7 @@ class Imageupload
                 $newfilename = (! empty($newfilename) ? $newfilename : $originalFilename);
                 break;
             default:
-                $newfilename = $originalFilename;
+                $newfilename = pathinfo($originalFilename, PATHINFO_FILENAME);
         }
 
         $this->results['filename'] = $newfilename.'.'.$extension;
