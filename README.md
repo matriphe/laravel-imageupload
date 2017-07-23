@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/matriphe/laravel-imageupload.svg?branch=master)](https://travis-ci.org/matriphe/laravel-imageupload)
 [![Total Download](https://img.shields.io/packagist/dt/matriphe/imageupload.svg)](https://packagist.org/packages/matriphe/imageupload)
+[![Latest Stable Version](https://img.shields.io/packagist/v/matriphe/imageupload.svg)](https://packagist.org/packages/matriphe/imageupload)
 
 
 Upload image easily using Laravel's build in function and resize it using [Intervention Image library](http://image.intervention.io/) automatically. 
