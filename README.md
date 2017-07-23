@@ -1,5 +1,7 @@
 # Laravel Imageupload
 
+[![Build Status](https://travis-ci.org/matriphe/laravel-imageupload.svg?branch=master)](https://travis-ci.org/matriphe/laravel-imageupload)
+
 Upload image easily using Laravel's build in function and resize it using [Intervention Image library](http://image.intervention.io/) automatically. 
 
 The older version was using [Imagine library](https://imagine.readthedocs.org/en/latest/).
@@ -118,7 +120,7 @@ if (Request::hasFile('file')) {
 Array
 (
     [original_filename] => IMG_20170619_195131.jpg
-    [original_filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/c074962b5c50b6aa64c360d206bb0ae6.jpg
+    [original_filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/aadecb1e623b1a3fd1ae3c1ad4137e96.jpg
     [original_filedir] => uploads/images
     [original_extension] => jpg
     [original_mime] => image/jpeg
@@ -127,40 +129,97 @@ Array
     [original_height] => 4608
     [exif] => Array
         (
-            [FileName] => c074962b5c50b6aa64c360d206bb0ae6.jpg
-            [FileDateTime] => 1500798776
-            [FileSize] => 1465208
+            [FileName] => phpAzVzkv
+            [FileDateTime] => 1500799366
+            [FileSize] => 1379716
             [FileType] => 2
             [MimeType] => image/jpeg
-            [SectionsFound] => COMMENT
+            [SectionsFound] => ANY_TAG, IFD0, THUMBNAIL, EXIF, GPS, INTEROP
             [COMPUTED] => Array
                 (
                     [html] => width="2592" height="4608"
                     [Height] => 4608
                     [Width] => 2592
                     [IsColor] => 1
+                    [ByteOrderMotorola] => 1
+                    [ApertureFNumber] => f/2.0
+                    [Thumbnail.FileType] => 2
+                    [Thumbnail.MimeType] => image/jpeg
                 )
 
-            [COMMENT] => Array
+            [Make] => Xiaomi
+            [Model] => Redmi Note3
+            [XResolution] => 72/1
+            [YResolution] => 72/1
+            [ResolutionUnit] => 2
+            [Software] => kenzo-user 6.0.1 MMB29M 7.6.7 release-keys
+            [DateTime] => 2017:06:19 19:51:31
+            [YCbCrPositioning] => 1
+            [Exif_IFD_Pointer] => 234
+            [GPS_IFD_Pointer] => 718
+            [THUMBNAIL] => Array
                 (
-                    [0] => CREATOR: gd-jpeg v1.0 (using IJG JPEG v80), quality = 90
-
+                    [Compression] => 6
+                    [XResolution] => 72/1
+                    [YResolution] => 72/1
+                    [ResolutionUnit] => 2
+                    [JPEGInterchangeFormat] => 898
+                    [JPEGInterchangeFormatLength] => 15696
                 )
 
+            [ExposureTime] => 1/33
+            [FNumber] => 200/100
+            [ExposureProgram] => 0
+            [ISOSpeedRatings] => 854
+            [ExifVersion] => 0220
+            [DateTimeOriginal] => 2017:06:19 19:51:31
+            [DateTimeDigitized] => 2017:06:19 19:51:31
+            [ComponentsConfiguration] => 
+            [ShutterSpeedValue] => 5058/1000
+            [ApertureValue] => 200/100
+            [BrightnessValue] => 300/100
+            [MeteringMode] => 1
+            [Flash] => 16
+            [FocalLength] => 357/100
+            [SubSecTime] => 123298
+            [SubSecTimeOriginal] => 123298
+            [SubSecTimeDigitized] => 123298
+            [FlashPixVersion] => 0100
+            [ColorSpace] => 1
+            [ExifImageWidth] => 2592
+            [ExifImageLength] => 4608
+            [InteroperabilityOffset] => 687
+            [SensingMethod] => 2
+            [SceneType] => 
+            [ExposureMode] => 0
+            [WhiteBalance] => 0
+            [FocalLengthIn35mmFilm] => 4
+            [SceneCaptureType] => 0
+            [GPSAltitudeRef] => 200/100
+            [GPSTimeStamp] => Array
+                (
+                    [0] => 12/1
+                    [1] => 51/1
+                    [2] => 30/1
+                )
+
+            [GPSDateStamp] => 2017:06:19
+            [InterOperabilityIndex] => R98
+            [InterOperabilityVersion] => 0100
         )
 
     [path] => /Volumes/data/Development/php/laravel/51/public/uploads/images
     [dir] => uploads
-    [filename] => c074962b5c50b6aa64c360d206bb0ae6.jpg
-    [basename] => c074962b5c50b6aa64c360d206bb0ae6
+    [filename] => aadecb1e623b1a3fd1ae3c1ad4137e96.jpg
+    [basename] => aadecb1e623b1a3fd1ae3c1ad4137e96
     [dimensions] => Array
         (
             [square50] => Array
                 (
                     [path] => /Volumes/data/Development/php/laravel/51/public/uploads/images
                     [dir] => uploads/images
-                    [filename] => c074962b5c50b6aa64c360d206bb0ae6_square50.jpg
-                    [filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/c074962b5c50b6aa64c360d206bb0ae6_square50.jpg
+                    [filename] => aadecb1e623b1a3fd1ae3c1ad4137e96_square50.jpg
+                    [filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/aadecb1e623b1a3fd1ae3c1ad4137e96_square50.jpg
                     [filedir] => uploads/images
                     [width] => 50
                     [height] => 50
@@ -172,8 +231,8 @@ Array
                 (
                     [path] => /Volumes/data/Development/php/laravel/51/public/uploads/images
                     [dir] => uploads/images
-                    [filename] => c074962b5c50b6aa64c360d206bb0ae6_square100.jpg
-                    [filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/c074962b5c50b6aa64c360d206bb0ae6_square100.jpg
+                    [filename] => aadecb1e623b1a3fd1ae3c1ad4137e96_square100.jpg
+                    [filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/aadecb1e623b1a3fd1ae3c1ad4137e96_square100.jpg
                     [filedir] => uploads/images
                     [width] => 100
                     [height] => 100
@@ -185,8 +244,8 @@ Array
                 (
                     [path] => /Volumes/data/Development/php/laravel/51/public/uploads/images
                     [dir] => uploads/images
-                    [filename] => c074962b5c50b6aa64c360d206bb0ae6_square200.jpg
-                    [filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/c074962b5c50b6aa64c360d206bb0ae6_square200.jpg
+                    [filename] => aadecb1e623b1a3fd1ae3c1ad4137e96_square200.jpg
+                    [filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/aadecb1e623b1a3fd1ae3c1ad4137e96_square200.jpg
                     [filedir] => uploads/images
                     [width] => 200
                     [height] => 200
@@ -198,8 +257,8 @@ Array
                 (
                     [path] => /Volumes/data/Development/php/laravel/51/public/uploads/images
                     [dir] => uploads/images
-                    [filename] => c074962b5c50b6aa64c360d206bb0ae6_square400.jpg
-                    [filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/c074962b5c50b6aa64c360d206bb0ae6_square400.jpg
+                    [filename] => aadecb1e623b1a3fd1ae3c1ad4137e96_square400.jpg
+                    [filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/aadecb1e623b1a3fd1ae3c1ad4137e96_square400.jpg
                     [filedir] => uploads/images
                     [width] => 400
                     [height] => 400
@@ -211,8 +270,8 @@ Array
                 (
                     [path] => /Volumes/data/Development/php/laravel/51/public/uploads/images
                     [dir] => uploads/images
-                    [filename] => c074962b5c50b6aa64c360d206bb0ae6_size50.jpg
-                    [filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/c074962b5c50b6aa64c360d206bb0ae6_size50.jpg
+                    [filename] => aadecb1e623b1a3fd1ae3c1ad4137e96_size50.jpg
+                    [filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/aadecb1e623b1a3fd1ae3c1ad4137e96_size50.jpg
                     [filedir] => uploads/images
                     [width] => 28
                     [height] => 50
@@ -224,8 +283,8 @@ Array
                 (
                     [path] => /Volumes/data/Development/php/laravel/51/public/uploads/images
                     [dir] => uploads/images
-                    [filename] => c074962b5c50b6aa64c360d206bb0ae6_size100.jpg
-                    [filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/c074962b5c50b6aa64c360d206bb0ae6_size100.jpg
+                    [filename] => aadecb1e623b1a3fd1ae3c1ad4137e96_size100.jpg
+                    [filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/aadecb1e623b1a3fd1ae3c1ad4137e96_size100.jpg
                     [filedir] => uploads/images
                     [width] => 56
                     [height] => 100
@@ -237,8 +296,8 @@ Array
                 (
                     [path] => /Volumes/data/Development/php/laravel/51/public/uploads/images
                     [dir] => uploads/images
-                    [filename] => c074962b5c50b6aa64c360d206bb0ae6_size200.jpg
-                    [filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/c074962b5c50b6aa64c360d206bb0ae6_size200.jpg
+                    [filename] => aadecb1e623b1a3fd1ae3c1ad4137e96_size200.jpg
+                    [filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/aadecb1e623b1a3fd1ae3c1ad4137e96_size200.jpg
                     [filedir] => uploads/images
                     [width] => 112
                     [height] => 200
@@ -250,8 +309,8 @@ Array
                 (
                     [path] => /Volumes/data/Development/php/laravel/51/public/uploads/images
                     [dir] => uploads/images
-                    [filename] => c074962b5c50b6aa64c360d206bb0ae6_size400.jpg
-                    [filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/c074962b5c50b6aa64c360d206bb0ae6_size400.jpg
+                    [filename] => aadecb1e623b1a3fd1ae3c1ad4137e96_size400.jpg
+                    [filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/aadecb1e623b1a3fd1ae3c1ad4137e96_size400.jpg
                     [filedir] => uploads/images
                     [width] => 225
                     [height] => 400
