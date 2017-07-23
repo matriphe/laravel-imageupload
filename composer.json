@@ -26,11 +26,15 @@
   },
   "suggest": {},
   "autoload": {
-    "classmap": [
-      "src/migrations"
-    ],
     "psr-4": {
       "Matriphe\\Imageupload\\": "src/"
     }
+  },
+  "extra": {
+      "laravel": {
+          "providers": [
+              "Matriphe\\Imageupload\\ImageuploadServiceProvider"
+          ]
+      }
   }
 }
