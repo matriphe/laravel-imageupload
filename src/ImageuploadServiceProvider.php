@@ -3,6 +3,7 @@
 namespace Matriphe\Imageupload;
 
 use Illuminate\Support\ServiceProvider;
+use Intervention\Image\ImageManager;
 
 class ImageuploadServiceProvider extends ServiceProvider
 {
@@ -24,7 +25,7 @@ class ImageuploadServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('imageupload', function ($app) {
-            return new Imageupload();
+            return new Imageupload(new ImageManager());
         });
     }
 

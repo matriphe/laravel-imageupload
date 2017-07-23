@@ -38,7 +38,7 @@ return [
   /*
    * Sizes, used to crop and create multiple size.
    *
-   * array(width, height, square, quality), if square set to TRUE, image will be in square
+   * array(width, height, squared), if square set to TRUE, image will be in square
    */
    'dimensions' => [
 

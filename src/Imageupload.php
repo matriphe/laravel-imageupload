@@ -8,11 +8,12 @@ use File;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageManager;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Carbon\Carbon;
 
 class Imageupload
 {
     /**
-     * The results
+     * The results array
      *
      * @var array
      * @access public
@@ -42,211 +43,73 @@ class Imageupload
      *
      * @access public
      */
-    public function __construct()
+    public function __construct(ImageManager $intervention)
     {
-        $this->prepareConfig();
+        $this->intervention = $intervention;
+    
+        $this->prepareConfigs();
     }
 
     /**
-     * The main and the only one method exposed to public and used.
-     *
+     * The main method, upload the file.
+     * 
      * @access public
-     * @param  UploadedFile $uploadedFile
-     * @param  string       $newfilename  (default: null)
-     * @param  string       $dir          (default: null)
+     * @param \Symfony\Component\HttpFoundation\File\UploadedFile $uploadedFile
+     * @param string $newFilename (default: null)
+     * @param string $path (default: null)
      * @return array
      */
-    public function upload(UploadedFile $uploadedFile, $newfilename = null, $dir = null)
+    public function upload(UploadedFile $uploadedFile, $newFilename = null, $path = null)
     {
-        $isPathOk = $this->checkPathIsOk($this->uploadpath, $dir);
-        $isImage = $this->checkIsImage($uploadedFile);
-
-        if (! $isPathOk || ! $isImage) {
-            return $this->results;
-        }
-
-        if (! $uploadedFile) {
-            return $this->results;
-        }
-
-        $this->getUploadedFileProperties($uploadedFile);
-        $this->setNewFilename($newfilename);
-
-        if (! $this->saveFileToPath($uploadedFile)) {
-            return $this->results;
-        }
-
-        $this->createThumbnails();
-
+        $this->prepareTargetUploadPath($path);
+        
+        $this->getUploadedOriginalFileProperties($uploadedFile);
+        
+        $this->setNewFilename($newFilename);
+        
+        $this->saveOriginalFile($uploadedFile);
+        
+        $this->createThumbnails($uploadedFile);
+        
         return $this->results;
     }
-
+    
     /**
-     * Prepare and set configs.
-     *
-     * @access private
-     */
-    private function prepareConfig()
-    {
-        $this->library = config('imageupload.library', 'gd');
-        $this->quality = config('imageupload.quality', 90);
-        $this->uploadpath = config('imageupload.path', public_path('uploads/images'));
-        $this->newfilename = config('imageupload.newfilename', 'original');
-        $this->dimensions = config('imageupload.dimensions');
-        $this->suffix = config('imageupload.suffix', true);
-        $this->exif = config('imageupload.exif', false);
-
-        return $this;
-    }
-
-    /**
-     * Get image processing library (Intervention).
+     * Get and prepare configs.
      * 
      * @access private
-     * @return ImageManager
+     * @return void
      */
-    private function getImageLibrary()
+    private function prepareConfigs()
     {
-        $driver = $this->library;
+        $this->library = Config::get('imageupload.library', 'gd');
+        $this->quality = Config::get('imageupload.quality', 90);
+        $this->uploadpath = Config::get('imageupload.path', public_path('uploads/images'));
+        $this->newfilename = Config::get('imageupload.newfilename', 'original');
+        $this->dimensions = Config::get('imageupload.dimensions');
+        $this->suffix = Config::get('imageupload.suffix', true);
+        $this->exif = Config::get('imageupload.exif', false);
         
-        if (! in_array($this->library, ['gd', 'imagick'])) {
-            $driver = 'gd';
-        }
-        
-        return (new ImageManager(compact('driver')));
-    }
-
-    /**
-     * Create the thumbnails for uploaded image.
-     *
-     * @access private
-     */
-    private function createThumbnails()
-    {
-        if (empty($this->dimensions) || ! is_array($this->dimensions)) {
-            return $this;
-        }
-        
-        $sourceFilePath = $this->results['original_filepath'];
-
-        foreach ($this->dimensions as $name => $dimension) {
-            if (empty($dimension) || ! is_array($dimension)) {
-                continue;
-            }
-
-            list($width, $height, $crop) = $dimension;
-
-            $height = (! empty($height) ? $height : $width);
-            $crop = (isset($crop) ? $crop : false);
-
-            $resized = $this->resizeImage($sourceFilePath, $name, $width, $height, $crop);
-            
-            if (empty($resized)) {
-                continue;
-            }
-
-            $this->results['dimensions'][$name] = $resized;
-        }
+        $this->intervention->configure(['driver' => $this->library]);
 
         return $this;
     }
-
+    
     /**
-     * Save (move) uploaded file to location and save as original file.
-     *
+     * Check and create directory if not exists.
+     * 
      * @access private
-     * @param UploadedFile $uploadedFile
+     * @param string $absoluteTargetPath
+     * @return boolean
      */
-    private function saveFileToPath(UploadedFile $uploadedFile)
+    private function createDirectoryIfNotExists($absoluteTargetPath)
     {
-        $uploaded = $uploadedFile->move($this->results['path'], $this->results['filename']);
-
-        if (! $uploaded) {
-            $this->results['error'] = 'File '.$this->results['original_filename '].' is not uploaded.';
-
-            return false;
-        }
-
-        $uploadedFilePath = implode('/', [
-            $this->results['path'], $this->results['filename'],
-        ]);
-
-        $this->results['original_filepath'] = $uploadedFilePath;
-        $this->results['original_filedir'] = $this->getDirFromPath($uploadedFilePath);
-        $this->results['basename'] = pathinfo($uploadedFilePath, PATHINFO_FILENAME);
-
-        $this->getImageDimension($uploadedFilePath);
-
-        return true;
-    }
-
-    /**
-     * Set and get uploaded file dimension.
-     *
-     * @access private
-     * @param string $uploadedFilePath
-     */
-    private function getImageDimension($uploadedFilePath)
-    {
-        list($width, $height) = getimagesize($uploadedFilePath);
-        $this->results['original_width'] = $width;
-        $this->results['original_height'] = $height;
-
-        return $this;
-    }
-
-    /**
-     * Get EXIF data from uploaded file.
-     *
-     * @access private
-     * @param  string $uploadedFilepath
-     * @param  mixed  $sourceFilePath
-     * @return array
-     */
-    private function getExif($sourceFilePath)
-    {
-        $exifdata = [];
-
-        if (! $this->exif) {
-            return $exifdata;
-        }
-
-        try {
-            $image = $this->imagine
-                ->setMetadataReader(new ExifMetadataReader())
-                ->open($sourceFilePath);
-            $metadata = $image->metadata();
-            $exifdata = $metadata->toArray();
-
-            return $exifdata;
-        } catch (Exception $e) {
-            return $exifdata;
-        }
-    }
-
-    /**
-     * Check if path is exists and writeable. If not exists, create it.
-     *
-     * @access private
-     * @param  string $path
-     * @param  string $dir  (default: null)
-     * @return bool
-     */
-    private function checkPathIsOk($path, $dir = null)
-    {
-        $path = implode('/', array_filter([
-            rtrim($path, '/'), trim($dir, '/'),
-        ]));
-
-        $this->results['path'] = $path;
-        $this->results['dir'] = $this->getDirFromPath($path);
-
-        if (File::isDirectory($path) && File::isWritable($path)) {
+        if (File::isDirectory($absoluteTargetPath) && File::isWritable($absoluteTargetPath)) {
             return true;
         }
 
         try {
-            @File::makeDirectory($path, 0777, true);
+            @File::makeDirectory($absoluteTargetPath, 0777, true);
 
             return true;
         } catch (Exception $e) {
@@ -255,60 +118,89 @@ class Imageupload
             return false;
         }
     }
-
+    
     /**
-     * Get relative path from absolute path.
-     *
+     * Set target upload path.
+     * 
      * @access private
-     * @param  string $path
-     * @param  string $base (default: null)
+     * @param string $path (default: null)
+     * @return boolean
+     */
+    private function prepareTargetUploadPath($path = null)
+    {
+        $absoluteTargetPath = implode('/', array_filter([
+            rtrim($this->uploadpath, '/'), trim(dirname($path), '/'),
+        ]));
+
+        $this->results['path'] = $absoluteTargetPath;
+        $this->results['dir'] = $this->getRelativePath($absoluteTargetPath);
+
+        return $this->createDirectoryIfNotExists($absoluteTargetPath);
+    }
+    
+    /**
+     * Set thumbnail target upload file path.
+     * 
+     * @access private
+     * @param string $key
      * @return string
      */
-    private function getDirFromPath($path, $base = null)
+    private function getThumbnailsTargetUploadFilepath($key)
     {
-        if (empty($base)) {
-            $base = public_path();
+        $absoluteThumbnailTargetPath = implode('/', array_filter([
+            rtrim($this->results['path'], '/'), (! $this->suffix ? trim($key) : ''),
+        ]));
+        
+        $this->createDirectoryIfNotExists($absoluteThumbnailTargetPath); 
+        
+        $resizedBasename = implode('_', [
+            $this->results['basename'], $key,
+        ]);
+
+        if (! $this->suffix) {
+            $resizedBasename = $this->results['basename'];
         }
 
-        return trim(str_replace(public_path(), '', $path), '/');
-    }
+        $resizedBasename .= '.'.$this->results['original_extension'];
 
+        return implode('/', [$absoluteThumbnailTargetPath, $resizedBasename]);
+    }
+    
     /**
-     * Check if uploaded file is Image.
-     *
+     * Get relative path from absolute path.
+     * 
      * @access private
-     * @param  UploadedFile $uploadedFile
-     * @return bool
+     * @param string $absoluteTargetPath
+     * @return string
      */
-    private function checkIsImage(UploadedFile $uploadedFile)
+    private function getRelativePath($absoluteTargetPath)
     {
-        if (substr($uploadedFile->getMimeType(), 0, 5) == 'image') {
-            return true;
-        }
-
-        return false;
+        return trim(dirname(str_replace(public_path(), '', $absoluteTargetPath)), '/');
     }
-
+    
     /**
-     * Set new file name based on config.
-     *
+     * Set new file name from config.
+     * 
      * @access private
      * @param string $newfilename (default: null)
+     * @return void
      */
     private function setNewFilename($newfilename = null)
     {
         $extension = $this->results['original_extension'];
         $originalFilename = $this->results['original_filename'];
-
+        
+        $timestamp = Carbon::now()->getTimestamp();
+        
         switch ($this->newfilename) {
             case 'hash':
-                $newfilename = md5($originalFilename.strtotime('now'));
+                $newfilename = md5($originalFilename.$timestamp);
                 break;
             case 'random':
-                $newfilename = Str::random();
+                $newfilename = Str::random(16);
                 break;
             case 'timestamp':
-                $newfilename = strtotime('now');
+                $newfilename = $timestamp;
                 break;
             case 'custom':
                 $newfilename = (! empty($newfilename) ? $newfilename : $originalFilename);
@@ -316,117 +208,143 @@ class Imageupload
             default:
                 $newfilename = pathinfo($originalFilename, PATHINFO_FILENAME);
         }
-
+        
+        $this->results['basename'] = $newfilename;
         $this->results['filename'] = $newfilename.'.'.$extension;
 
         return $this;
     }
-
+    
     /**
-     * Set original uploaded file properties.
-     *
+     * Upload and save original file.
+     * 
      * @access private
-     * @param UploadedFile $uploadedFile
+     * @param \Symfony\Component\HttpFoundation\File\UploadedFile $uploadedFile
+     * @return void
      */
-    private function getUploadedFileProperties(UploadedFile $uploadedFile)
+    private function saveOriginalFile(UploadedFile $uploadedFile)
+    {
+        try {
+            $targetFilepath = implode('/', [
+                $this->results['path'], $this->results['filename']
+            ]);
+            
+            $image = $this->intervention->make($uploadedFile);
+            $image->save($targetFilepath, $this->quality);
+            
+            $this->results['original_width'] = $image->width();
+            $this->results['original_height'] = $image->height();
+            $this->results['original_filepath'] = $targetFilepath;
+            $this->results['original_filedir'] = $this->getRelativePath($targetFilepath);
+            
+            
+            if ($this->exif && ! empty($image->exif())) {
+                $this->results['exif'] = $image->exif();
+            }
+            
+        } catch (Exception $e) {
+            $this->results['error'] = $e->getMessage();
+        }
+        
+        return $this;
+    }
+    
+    /**
+     * Prepare original file properties.
+     * 
+     * @access private
+     * @param \Symfony\Component\HttpFoundation\File\UploadedFile $uploadedFile
+     * @return void
+     */
+    private function getUploadedOriginalFileProperties(UploadedFile $uploadedFile)
     {
         $this->results['original_filename'] = $uploadedFile->getClientOriginalName();
-        $this->results['original_filepath'] = $uploadedFile->getRealPath();
+        $this->results['original_filepath'] = $this->getRelativePath($uploadedFile->getRealPath());
+        $this->results['original_filedir'] = $uploadedFile->getRealPath();
         $this->results['original_extension'] = $uploadedFile->getClientOriginalExtension();
         $this->results['original_filesize'] = $uploadedFile->getSize();
         $this->results['original_mime'] = $uploadedFile->getMimeType();
-        $this->results['exif'] = $this->getExif($uploadedFile->getRealPath());
-
+        
         return $this;
     }
-
-    /**
-     * Set path for resized images.
-     *
-     * @access private
-     * @param  string $name
-     * @return string
-     */
-    private function getResizedFilePath($name)
-    {
-        $name = trim(Str::slug($name), '/');
-
-        $resizedPath = $this->results['path'];
-        $resizedBasename = implode('_', [
-            $this->results['basename'], $name,
-        ]);
-
-        if (! $this->suffix) {
-            $resizedPath = implode('/', [
-                $this->results['path'], $name,
-            ]);
-            $resizedBasename = $this->results['basename'];
-        }
-
-        $resizedBasename .= '.'.$this->results['original_extension'];
-
-        return implode('/', [$resizedPath, $resizedBasename]);
-    }
-
+    
     /**
      * Resize file to create thumbnail.
-     *
+     * 
      * @access private
-     * @param  string $sourceFilePath
-     * @param  string $name
-     * @param  int    $width
-     * @param  int    $height         (default: null)
-     * @param  bool   $crop           (default: false)
+     * @param Symfony\Component\HttpFoundation\File\UploadedFile $uploadedFile
+     * @param string $targetFilepath
+     * @param int $width
+     * @param int $height (default: null)
+     * @param bool $squared (default: false)
      * @return array
      */
-    private function resizeImage($sourceFilePath, $name, $width, $height = null, $crop = false)
+    private function resizeCropImage(UploadedFile $uploadedFile, $targetFilepath, $width, $height = null, $squared = false)
     {
-        if (! $height) {
+        $height = (! empty($height) ? $height : $width);
+        $squared = (isset($squared) ? $squared : false);
+        
+        $image = $this->intervention->make($uploadedFile);
+            
+        if ($squared) {
+            $width = ($height < $width ? $height : $width);
             $height = $width;
-        }
-
-        $resizedFilePath = $this->getResizedFilePath($name);
-
-        try {
-            $isPathOk = $this->checkPathIsOk(dirname($resizedFilePath));
             
-            if (! $isPathOk) {
-                return [];
+            $image->fit($width, $height, function($image) {
+                $image->upsize();
+            });
+        } else {
+            $image->resize($width, $height, function($image) {
+                $image->aspectRatio();
+            });
+        }
+        
+        $image->save($targetFilepath, $this->quality);
+        
+        return [
+            'path' => dirname($targetFilepath),
+            'dir' => $this->getRelativePath($targetFilepath),
+            'filename' => pathinfo($targetFilepath, PATHINFO_BASENAME),
+            'filepath' => $targetFilepath,
+            'filedir' => $this->getRelativePath($targetFilepath),
+            'width' => $image->width(),
+            'height' => $image->height(),
+            'filesize' => $image->filesize(),
+            'is_squared' => $squared,
+        ];
+    }
+    
+    /**
+     * Create thumbnails.
+     * 
+     * @access private
+     * @param \Symfony\Component\HttpFoundation\File\UploadedFile $uploadedFile
+     * @return void
+     */
+    private function createThumbnails(UploadedFile $uploadedFile)
+    {
+        if (empty($this->dimensions)) {
+            return $this;
+        }
+        
+        foreach ($this->dimensions as $key => $dimension) {
+            if (empty($dimension) || ! is_array($dimension)) {
+                continue;
             }
-            
-            $intervention = $this->getImageLibrary();
-            $image = $intervention->make($sourceFilePath);
-            
-            if ($crop) {
-                $width = ($height < $width ? $height : $width);
-                $height = $width;
-                
-                $image->fit($width, $height, function($image) {
-                    $image->upsize();
-                });
-            } else {
-                $image->resize($width, $height, function($image) {
-                    $image->aspectRatio();
-                });
-            }            
-            
-            $image->save($resizedFilePath, $this->quality);
-            
-            list($width, $height) = getimagesize($resizedFilePath);
-            $filesize = filesize($resizedFilePath);
 
-            return [
-                'path' => dirname($resizedFilePath),
-                'dir' => $this->getDirFromPath(dirname($resizedFilePath)),
-                'filename' => pathinfo($resizedFilePath, PATHINFO_BASENAME),
-                'filepath' => $resizedFilePath,
-                'filedir' => $this->getDirFromPath($resizedFilePath),
-                'width' => $width,
-                'height' => $height,
-                'filesize' => $filesize,
-            ];
-        } catch (Exception $e) {
-            return [];
+            list($width, $height, $squared) = $dimension;
+
+            $targetFilepath = $this->getThumbnailsTargetUploadFilepath($key);
+            
+            $image = $this->resizeCropImage($uploadedFile, $targetFilepath, $width, $height, $squared);
+            
+            if (! $image) {
+                continue;
+            }
+
+            $this->results['dimensions'][$key] = $image;
         }
+        
+        return $this;
     }
 }
