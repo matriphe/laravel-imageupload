@@ -76,6 +76,7 @@ abstract class AbstractImageuploadTest extends TestCase
     public function tearDown()
     {
         Mockery::close();
+        
         parent::tearDown();
     }
 

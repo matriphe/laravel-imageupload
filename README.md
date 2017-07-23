@@ -58,7 +58,7 @@ After publishing the configuration file, you can set up a route, view, and start
 
 The uploaded file will be saved in `public/uploads` directory. Of course, you can change this by publishing and modifying configuration file.
 
-Make sure the directory to store uploaded files is writeable and can be accessed by public.
+Make sure the directory to store uploaded files is writable and can be accessed by public.
 
 ### Route Example
 

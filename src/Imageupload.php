@@ -223,19 +223,15 @@ class Imageupload
             $targetFilepath = implode('/', [
                 $this->results['path'], $this->results['filename'],
             ]);
-            
+
             $image = $this->intervention->make($uploadedFile);
-            
+
             if ($this->exif && ! empty($image->exif())) {
                 $this->results['exif'] = $image->exif();
             }
-            
-            try {
-                $image->save($targetFilepath, $this->quality);
-            } catch (Exception $e) {
-                throw new ImageuploadException($e->getMessage());
-            }
-            
+
+            $image->save($targetFilepath, $this->quality);
+
             $this->results['original_width'] = $image->width();
             $this->results['original_height'] = $image->height();
             $this->results['original_filepath'] = $targetFilepath;
@@ -278,41 +274,39 @@ class Imageupload
      */
     private function resizeCropImage(UploadedFile $uploadedFile, $targetFilepath, $width, $height = null, $squared = false)
     {
-        $height = (! empty($height) ? $height : $width);
-        $squared = (isset($squared) ? $squared : false);
-
-        $image = $this->intervention->make($uploadedFile);
-
-        if ($squared) {
-            $width = ($height < $width ? $height : $width);
-            $height = $width;
-
-            $image->fit($width, $height, function ($image) {
-                $image->upsize();
-            });
-        } else {
-            $image->resize($width, $height, function ($image) {
-                $image->aspectRatio();
-            });
-        }
-        
         try {
-            $image->save($targetFilepath, $this->quality);
+            $height = (! empty($height) ? $height : $width);
+            $squared = (isset($squared) ? $squared : false);
+
+            $image = $this->intervention->make($uploadedFile);
+
+            if ($squared) {
+                $width = ($height < $width ? $height : $width);
+                $height = $width;
+
+                $image->fit($width, $height, function ($image) {
+                    $image->upsize();
+                });
+            } else {
+                $image->resize($width, $height, function ($image) {
+                    $image->aspectRatio();
+                });
+            }
+
+            return [
+                'path' => dirname($targetFilepath),
+                'dir' => $this->getRelativePath($targetFilepath),
+                'filename' => pathinfo($targetFilepath, PATHINFO_BASENAME),
+                'filepath' => $targetFilepath,
+                'filedir' => $this->getRelativePath($targetFilepath),
+                'width' => $image->width(),
+                'height' => $image->height(),
+                'filesize' => $image->filesize(),
+                'is_squared' => $squared,
+            ];
         } catch (Exception $e) {
             throw new ImageuploadException($e->getMessage());
         }
-        
-        return [
-            'path' => dirname($targetFilepath),
-            'dir' => $this->getRelativePath($targetFilepath),
-            'filename' => pathinfo($targetFilepath, PATHINFO_BASENAME),
-            'filepath' => $targetFilepath,
-            'filedir' => $this->getRelativePath($targetFilepath),
-            'width' => $image->width(),
-            'height' => $image->height(),
-            'filesize' => $image->filesize(),
-            'is_squared' => $squared,
-        ];
     }
 
     /**

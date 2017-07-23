@@ -17,7 +17,7 @@ return [
   'quality' => env('IMAGEUPLOAD_QUALITY', 90),
 
   /*
-   * Upload directory. Make sure this is can be accessed by public and writeable.
+   * Upload directory. Make sure this is can be accessed by public and writable.
    *
    * Default: public/uploads/images
    */

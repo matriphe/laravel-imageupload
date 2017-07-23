@@ -34,13 +34,13 @@ return PhpCsFixer\Config::create()
         'lowercase_cast' => true,
         'lowercase_constants' => true,
         'lowercase_keywords' => true,
-        //'mb_str_functions' => false,
+        'mb_str_functions' => false,
         'method_argument_space' => true,
         'method_separation' => true,
         'modernize_types_casting' => true,
         'native_function_casing' => true,
         'new_with_braces' => true,
-        //'no_alias_functions' => false,
+        'no_alias_functions' => false,
         'no_blank_lines_after_class_opening' => true,
         'no_blank_lines_after_phpdoc' => false,
         'no_blank_lines_before_namespace' => false,
@@ -114,7 +114,7 @@ return PhpCsFixer\Config::create()
     ])
     ->setFinder(
         PhpCsFixer\Finder::create()
-            ->exclude('storage')
+            ->exclude('vendor')
             ->in(__DIR__)
     )
 ;
