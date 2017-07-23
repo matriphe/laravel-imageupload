@@ -7,17 +7,17 @@
 
 Upload image easily using Laravel's build in function and resize it using [Intervention Image library](http://image.intervention.io/) automatically. 
 
-The older version was using [Imagine library](https://imagine.readthedocs.org/en/latest/).
+The older (stable) version was using [Imagine library](https://imagine.readthedocs.org/en/latest/).
 
 ## Version Compatibility
 
- Laravel  | Imageupload | Command
-:---------|:------------|:-------
- 4.2.x    | [4.2.x](https://github.com/matriphe/laravel-imageupload/blob/laravel42/README.md) | `composer require "matriphe/imageupload:4.2.*"`
- 5.0.x / 5.1.x / 5.2.x / 5.3.x / 5.4.x   | [5.x](https://github.com/matriphe/laravel-imageupload/blob/laravel5/README.md) | `composer require "matriphe/imageupload:5.*"`
- 5.0.x / 5.1.x / 5.2.x / 5.3.x / 5.4.x    | 6.x | `composer require "matriphe/imageupload:6.*"`
+ Laravel  | Imageupload | Installation Command
+:---------|:------------|:--------------------
+ 4.2.x    | [4.x](https://github.com/matriphe/laravel-imageupload/blob/laravel42/README.md) (obselete) | `composer require "matriphe/imageupload:4.2.*"`
+ 5.0.x / 5.1.x / 5.2.x / 5.3.x / 5.4.x   | [5.x](https://github.com/matriphe/laravel-imageupload/blob/laravel5/README.md) (stable) | `composer require "matriphe/imageupload:5.*"`
+ 5.0.x / 5.1.x / 5.2.x / 5.3.x / 5.4.x    | 6.x (latest) | `composer require "matriphe/imageupload:6.*"`
 
-The old version was following Laravel version. Now this package will use [semantic version (semver)](http://semver.org/) start from version 6.
+The old version was following Laravel version. Now this package will use [semantic version (semver)](http://semver.org/) start from version 6.0.
 
 ## Installation
 
@@ -36,23 +36,40 @@ composer require "matriphe/imageupload"
 ### Laravel 5.x Installation
 
 Open the `config/app.php` and add this line in `providers` section.
+
 ```php
 Matriphe\Imageupload\ImageuploadServiceProvider::class,
 ```
+
 Still on `config/app.php` file, add this line in `aliases` section.
+
 ```php
 'Imageupload' => Matriphe\Imageupload\ImageuploadFacade::class,
 ```
 
-## Publish Configuration
+## Publish Configuration and Migration File
 
-To control the configuration, you have to *publish* the configuration file.
+To control the configuration, you have to publish the configuration file.
+
 ```bash
 php artisan vendor:publish --provider="Matriphe\Imageupload\ImageuploadServiceProvider"
 ```
-After running this command, there will be `config/imageupload.php` file.
 
-## Upload Something
+After running this command, there will be `config/imageupload.php` config file and `database/migrations/2017_07_24_024410_create_image_upload_table.php` migration file.
+
+### Configuration
+
+Please check the `config/imageupload.php` for more detail. You can use `.env` to config based on your environment.
+
+### Migration
+
+By default, migration file will create `image_uploads` table. Check the file and modify to fit your need.
+
+### Model
+
+You can create a model to extend the built-in model, by extending `Matriphe\Imageupload\ImageuploadModel`. Please check this file too and adjust to fit your need.
+
+## Try Upload Something!
 
 After publishing the configuration file, you can set up a route, view, and start upload something.
 
