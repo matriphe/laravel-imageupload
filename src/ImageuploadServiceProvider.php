@@ -11,11 +11,15 @@ class ImageuploadServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->mergeConfigFrom(__DIR__.'/config/config.php', 'imageupload');
-
         $this->publishes([
-            __DIR__.'/config/config.php' => config_path('imageupload.php'),
-        ]);
+            __DIR__.'/../config/config.php' => config_path('imageupload.php'),
+        ], 'config');
+
+        if (! class_exists('CreateImageUploadTable')) {
+            $this->publishes([
+                __DIR__.'/../database/migrations/create_image_upload_table.php.stub' => database_path('migrations/2017_07_24_024410_create_image_upload_table.php'),
+            ], 'migrations');
+        }
     }
 
     /**
@@ -24,6 +28,8 @@ class ImageuploadServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'imageupload');
+
         $this->app->singleton('imageupload', function ($app) {
             return new Imageupload(new ImageManager());
         });
