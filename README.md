@@ -1,32 +1,40 @@
 # Laravel Imageupload
 
-Upload image using Laravel's build in function and resize it using [Imagine library](https://imagine.readthedocs.org/en/latest/) automatically.
+Upload image easily using Laravel's build in function and resize it using [Intervention Image library](http://image.intervention.io/) automatically. 
 
-## Compatibility
+The older version was using [Imagine library](https://imagine.readthedocs.org/en/latest/).
 
-* Laravel 5.4 (Latest)
-* Laravel 5.1 (LTS)
-* [Laravel 5.0](https://github.com/matriphe/laravel-imageupload/blob/laravel50/README.md)
-* [Laravel 4.2](https://github.com/matriphe/laravel-imageupload/blob/laravel42/README.md)
+## Version Compatibility
+
+ Laravel  | Imageupload | Command
+:---------|:------------|:-------
+ 4.2.x    | [4.2.x](https://github.com/matriphe/laravel-imageupload/blob/laravel42/README.md) | `composer require "matriphe/imageupload:4.2.*"`
+ 5.0.x / 5.1.x / 5.2.x / 5.3.x / 5.4.x   | [5.x](https://github.com/matriphe/laravel-imageupload/blob/laravel50/README.md) | `composer require "matriphe/imageupload:5.*"`
+ 5.0.x / 5.1.x / 5.2.x / 5.3.x / 5.4.x    | 6.x | `composer require "matriphe/imageupload:6.*"`
+
+The old version was following Laravel version. Now this package will use semver start from version 6.
 
 ## Installation
 
 Open `composer.json` and require this line below.
+
 ```json
-"matriphe/imageupload": "^5.0"
+"matriphe/imageupload": "6.*"
 ```
-Or you can run this command from your project directory.
+
+Or you can simply run this command from your project directory.
+
 ```bash
 composer require "matriphe/imageupload"
 ```
 
-### Laravel Installation
+### Laravel 5.x Installation
 
 Open the `config/app.php` and add this line in `providers` section.
 ```php
 Matriphe\Imageupload\ImageuploadServiceProvider::class,
 ```
-Still in `config/app.php`, add this line in `aliases` section.
+Still on `config/app.php` file, add this line in `aliases` section.
 ```php
 'Imageupload' => Matriphe\Imageupload\ImageuploadFacade::class,
 ```
@@ -35,15 +43,17 @@ Still in `config/app.php`, add this line in `aliases` section.
 
 To control the configuration, you have to *publish* the configuration file.
 ```bash
-php artisan vendor:publish
+php artisan vendor:publish --provider="Matriphe\Imageupload\ImageuploadServiceProvider"
 ```
 After running this command, there will be `config/imageupload.php` file.
 
-## Test It
+## Upload Something
 
-After publishing the configuration file, you can set up a route and view.
+After publishing the configuration file, you can set up a route, view, and start upload something.
 
 The uploaded file will be saved in `public/uploads` directory. Of course, you can change this by publishing and modifying configuration file.
+
+Make sure the directory to store uploaded files is writeable and can be accessed by public.
 
 ### Route Example
 
@@ -54,9 +64,7 @@ The uploaded file will be saved in `public/uploads` directory. Of course, you ca
 Route::any('matriphe/imageupload', function() 
 {
     $data = [];
-    
-    echo config('imageupload.library');
-    
+
     if (Request::hasFile('file')) {
         $data['result'] = Imageupload::upload(Request::file('file'));
     }
@@ -92,17 +100,20 @@ Add this in your views directory.
 
 ## Usage
 
-Just use the `Imageupload::upload($file)` function and it will take care of cropping and renaming. Of course, you can modify on the fly by passing parameter `Imageupload::upload($filesource, $newfilename, $dir)`.
+Just use the `Imageupload::upload(Request::file('file'))` function and it will take care of cropping and renaming. Of course, you can modify on the fly by passing parameter `Imageupload::upload($filesource, $newfilename, $path)`.
 
 The return of the function is **array**.
 
 ### Example
+
 ```php
 if (Request::hasFile('file')) {
     $result = Imageupload::upload(Request::file('file'));
 }
 ```
+
 ### Output
+
 ```array
 Array
 (
@@ -251,3 +262,12 @@ Array
 
 )
 ```
+
+## Next Feature
+
+ * Utilize Laravel's filesystem to store uploaded file.
+ * Add Lumen support
+ 
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
