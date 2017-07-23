@@ -227,16 +227,17 @@ class Imageupload
             ]);
 
             $image = $this->intervention->make($uploadedFile);
+            
+            if ($this->exif && ! empty($image->exif())) {
+                $this->results['exif'] = $image->exif();
+            }
+            
             $image->save($targetFilepath, $this->quality);
 
             $this->results['original_width'] = $image->width();
             $this->results['original_height'] = $image->height();
             $this->results['original_filepath'] = $targetFilepath;
             $this->results['original_filedir'] = $this->getRelativePath($targetFilepath);
-
-            if ($this->exif && ! empty($image->exif())) {
-                $this->results['exif'] = $image->exif();
-            }
         } catch (Exception $e) {
             $this->results['error'] = $e->getMessage();
         }
