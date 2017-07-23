@@ -37,7 +37,7 @@ class ImageuploadServiceProvider extends ServiceProvider
     public function provides()
     {
         return [
-           
+
         ];
     }
 }

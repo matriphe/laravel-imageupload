@@ -24,10 +24,7 @@
     "mockery/mockery": "^0.9.9",
     "orchestra/testbench": "~3.0"
   },
-  "suggest": {
-    "league/flysystem-aws-s3-v2": "Amazon S3 storage driver",
-    "league/flysystem-rackspace": "Rackspace Cloud Storage driver"
-  },
+  "suggest": {},
   "autoload": {
     "classmap": [
       "src/migrations"
