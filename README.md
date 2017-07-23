@@ -17,7 +17,7 @@ The older version was using [Imagine library](https://imagine.readthedocs.org/en
  5.0.x / 5.1.x / 5.2.x / 5.3.x / 5.4.x   | [5.x](https://github.com/matriphe/laravel-imageupload/blob/laravel5/README.md) | `composer require "matriphe/imageupload:5.*"`
  5.0.x / 5.1.x / 5.2.x / 5.3.x / 5.4.x    | 6.x | `composer require "matriphe/imageupload:6.*"`
 
-The old version was following Laravel version. Now this package will use semver start from version 6.
+The old version was following Laravel version. Now this package will use [semantic version (semver)](http://semver.org/) start from version 6.
 
 ## Installation
 
@@ -325,6 +325,20 @@ Array
 
 )
 ```
+
+## Changelog
+
+### Version 6.x
+
+* Start using [semantic version (semver)](http://semver.org/) for versioning
+* Using [Intervention](http://image.intervention.io/use/basics) for image processing
+* Support only [GD](https://libgd.github.io/) and [Imagick (ImageMagick)](http://php.net/manual/en/book.imagick.php), [Gmagick](http://php.net/manual/en/book.gmagick.php) is not supported anymore
+* Using exception for better error handling
+
+### Version 5.x and 4.2.x
+
+* Last version that follow Laravel versioning
+* Last version that use [Imagine library](https://imagine.readthedocs.org/en/latest/)
 
 ## Next Feature
 
