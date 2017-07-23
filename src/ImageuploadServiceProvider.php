@@ -2,7 +2,6 @@
 
 namespace Matriphe\Imageupload;
 
-use Carbon\Carbon;
 use Illuminate\Support\ServiceProvider;
 use Intervention\Image\ImageManager;
 
@@ -17,11 +16,9 @@ class ImageuploadServiceProvider extends ServiceProvider
         ], 'config');
 
         if (! class_exists('CreateImageUploadTable')) {
-            $stub = '/../database/migrations/create_image_upload_table.php.stub';
-            $time = Carbon::now()->format('Y_m_d_His');
-            $migrationFile = database_path('migrations/'.$time.'_create_image_upload_table.php');
-
-            $this->publishes([__DIR__.$stub => $time], 'migrations');
+            $this->publishes([
+                __DIR__.'/../database/migrations/create_image_upload_table.php.stub' => database_path('migrations/'.date('Y_m_d_His', time()).'_create_image_upload_table.php'),
+            ], 'migrations');
         }
     }
 
