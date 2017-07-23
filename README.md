@@ -4,28 +4,33 @@ Upload image using Laravel's build in function and resize it using [Imagine libr
 
 ## Compatibility
 
-* Laravel 5.1 (Latest)
-* [Laravel 5.0](https://github.com/matriphe/laravel-imageupload/blob/laravel50/README.md)
+* [Laravel 5.x](https://github.com/matriphe/laravel-imageupload/blob/master/README.md)
 * [Laravel 4.2](https://github.com/matriphe/laravel-imageupload/blob/laravel42/README.md)
 
 ## Installation
 
 Open `composer.json` and require this line below.
+
 ```json
-"matriphe/imageupload": "5.1.*"
+"matriphe/imageupload": "5.*"
 ```
+
 Or you can run this command from your project directory.
+
 ```bash
-composer require "matriphe/imageupload:5.1.*"
+composer require "matriphe/imageupload:5.*"
 ```
 
 ### Laravel Installation
 
 Open the `config/app.php` and add this line in `providers` section.
+
 ```php
 Matriphe\Imageupload\ImageuploadServiceProvider::class,
 ```
+
 Still in `config/app.php`, add this line in `aliases` section.
+
 ```php
 'Imageupload' => Matriphe\Imageupload\ImageuploadFacade::class,
 ```
@@ -33,10 +38,63 @@ Still in `config/app.php`, add this line in `aliases` section.
 ## Publish Configuration
 
 To control the configuration, you have to *publish* the configuration file.
+
 ```bash
-php artisan vendor:publish
+php artisan vendor:publish --provider="Matriphe\Imageupload\ImageuploadServiceProvider"
 ```
+
 After running this command, there will be `config/imageupload.php` file.
+
+## Test It
+
+After publishing the configuration file, you can set up a route and view.
+
+The uploaded file will be saved in `public/uploads` directory. Of course, you can change this by publishing and modifying configuration file.
+
+### Route Example
+
+```php
+<?php
+// routes.php
+...
+Route::any('matriphe/imageupload', function() 
+{
+    $data = [];
+    
+    echo config('imageupload.library');
+    
+    if (Request::hasFile('file')) {
+        $data['result'] = Imageupload::upload(Request::file('file'));
+    }
+    
+    return view('form.blade.php')->with($data);
+});
+```
+
+### View
+
+Add this in your views directory.
+
+```html
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Imageupload</title>
+    </head>
+    <body>
+        <form action="{{ URL::current() }}" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="_token" value="{{ Session::token() }}">
+            <pre>{{ (!empty($result) ? print_r($result, 1) : '') }}</pre>
+            <div>
+                <input type="file" name="file">
+            </div>
+            <div>
+                <button type="submit">Upload!</button>
+            </div>
+        </form>
+    </body>
+</html>
+```
 
 ## Test It
 
