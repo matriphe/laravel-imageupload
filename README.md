@@ -4,17 +4,19 @@ Upload image using Laravel's build in function and resize it using [Imagine libr
 
 ## Compatibility
 
-* [Laravel 5.1](https://github.com/matriphe/laravel-imageupload/blob/laravel51/README.md)
-* [Laravel 5.0](https://github.com/matriphe/laravel-imageupload/blob/laravel50/README.md)
+* [Laravel 5.x](https://github.com/matriphe/laravel-imageupload/blob/laravel5/README.md)
 * Laravel 4.2
 
 ## Installation
 
 Open `composer.json` and require this line below.
+
 ```json
 "matriphe/imageupload": "4.2.*"
 ```
+
 Or you can run this command from your project directory.
+
 ```bash
 composer require "matriphe/imageupload:4.2.*"
 ```
@@ -22,10 +24,13 @@ composer require "matriphe/imageupload:4.2.*"
 ### Laravel Installation
 
 Open the `app/config/app.php` and add this line in `providers` section.
+
 ```php
 'Matriphe\Imageupload\ImageuploadServiceProvider'
 ```
+
 Still in `app/config/app.php`, add this line in `alias` section.
+
 ```php
 'Imageupload' => 'Matriphe\Imageupload\ImageuploadFacade'
 ```
@@ -33,9 +38,11 @@ Still in `app/config/app.php`, add this line in `alias` section.
 ## Publish Configuration
 
 To control the configuration, you have to *publish* the configuration file.
+
 ```bash
  php artisan config:publish matriphe/imageupload
 ```
+
 After running this command, there will be `config/imageupload.php` file.
 
 ## Test It
