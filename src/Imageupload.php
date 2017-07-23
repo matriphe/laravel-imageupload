@@ -112,9 +112,7 @@ class Imageupload
 
             return true;
         } catch (Exception $e) {
-            $this->results['error'] = $e->getMessage();
-
-            return false;
+            throw new ImageuploadException($e->getMessage());
         }
     }
 
@@ -225,21 +223,25 @@ class Imageupload
             $targetFilepath = implode('/', [
                 $this->results['path'], $this->results['filename'],
             ]);
-
+            
             $image = $this->intervention->make($uploadedFile);
             
             if ($this->exif && ! empty($image->exif())) {
                 $this->results['exif'] = $image->exif();
             }
             
-            $image->save($targetFilepath, $this->quality);
-
+            try {
+                $image->save($targetFilepath, $this->quality);
+            } catch (Exception $e) {
+                throw new ImageuploadException($e->getMessage());
+            }
+            
             $this->results['original_width'] = $image->width();
             $this->results['original_height'] = $image->height();
             $this->results['original_filepath'] = $targetFilepath;
             $this->results['original_filedir'] = $this->getRelativePath($targetFilepath);
         } catch (Exception $e) {
-            $this->results['error'] = $e->getMessage();
+            throw new ImageuploadException($e->getMessage());
         }
 
         return $this;
@@ -293,9 +295,13 @@ class Imageupload
                 $image->aspectRatio();
             });
         }
-
-        $image->save($targetFilepath, $this->quality);
-
+        
+        try {
+            $image->save($targetFilepath, $this->quality);
+        } catch (Exception $e) {
+            throw new ImageuploadException($e->getMessage());
+        }
+        
         return [
             'path' => dirname($targetFilepath),
             'dir' => $this->getRelativePath($targetFilepath),
