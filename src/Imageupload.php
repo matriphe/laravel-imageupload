@@ -8,7 +8,7 @@ use Exception;
 use File;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageManager;
-use UploadedFile;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class Imageupload
 {
