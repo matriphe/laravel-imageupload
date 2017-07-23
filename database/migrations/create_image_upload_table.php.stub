@@ -8,7 +8,7 @@ class CreateImageUploadTable extends Migration
 {
     public function __construct()
     {
-        $this->table = (new ImageModel())->getTable();
+        $this->table = (new ImageuploadModel())->getTable();
     }
     
     /**
