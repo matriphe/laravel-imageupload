@@ -2,8 +2,8 @@
 
 namespace Matriphe\Imageupload;
 
-use Illuminate\Database\Eloquent\Model;
 use Config;
+use Illuminate\Database\Eloquent\Model;
 
 class ImageuploadModel extends Model
 {
@@ -13,54 +13,54 @@ class ImageuploadModel extends Model
      * @var string
      */
     protected $table = 'image_uploads';
-    
+
     /**
      * The keys used in thumbnail.
-     * 
+     *
      * @var array
      */
     protected $thumbnailKeys = [
         'path', 'dir', 'filename', 'filepath', 'filedir', 'width', 'height',
         'filesize',
     ];
-    
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'original_filename', 'original_filepath', 'original_filedir', 
+        'original_filename', 'original_filepath', 'original_filedir',
         'original_extension', 'original_mime', 'original_filesize',
-        'original_width', 'original_height', 
+        'original_width', 'original_height',
         'path', 'dir', 'filename', 'basename',
         'exif',
     ];
-    
+
     /**
      * Get dimension fillable field.
-     * 
+     *
      * @return array
      */
     public function getDimensionKeys()
     {
         $dimensions = Config::get('imageupload.dimensions');
-        
+
         $fillable = [];
-        
+
         if (empty($dimensions) || ! is_array($dimensions)) {
             return $fillable;
         }
-        
+
         foreach ($dimensions as $name => $dimension) {
             foreach ($this->thumbnailKeys as $key) {
                 array_push($fillable, $name.'_'.$key);
             }
         }
-        
+
         return $fillable;
     }
-    
+
     /**
      * Get the fillable attributes for the model.
      *
@@ -70,23 +70,22 @@ class ImageuploadModel extends Model
     {
         return array_merge($this->fillable, $this->getDimensionKeys());
     }
-    
+
     /**
      * Mutate Exif JSON to array on reading.
-     * 
-     * @param string $value
+     *
+     * @param  string $value
      * @return array
      */
     public function getExifAttribute($value)
     {
         return json_decode($value, true);
     }
-    
+
     /**
      * Mutate Exif array to JSON on writing.
-     * 
+     *
      * @param array $value
-     * @return void
      */
     public function setExifAttribute($value)
     {
