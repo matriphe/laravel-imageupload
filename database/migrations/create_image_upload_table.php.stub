@@ -35,7 +35,7 @@ class CreateImageUploadTable extends Migration
                 $table->string('basename')->nullable();
                 $table->text('exif')->nullable();
                 
-                foreach (Config::get('imageupload'.dimensions) as $key => $dimension) {
+                foreach (Config::get('imageupload.dimensions') as $key => $dimension) {
                     $table->string($key.'_path')->nullable();
                     $table->string($key.'_dir')->nullable();
                     $table->string($key.'_filename')->nullable();
