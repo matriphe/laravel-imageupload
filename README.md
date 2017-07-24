@@ -180,7 +180,9 @@ The return of the function is instance of `Illuminate\Support\Collection`. You c
 
 ### Set Output
 
-To change the output on fly, use method `ouput($output)` before calling `upload($request)`. The options is `collection`, `json`, and `array` (default). See the config file to set the default output.
+To change the output on fly, use method `ouput($output)` before calling `upload($request)`. The options is `collection`, `json`, `db`, and `array` (default). See the config file to set the default output.
+
+The `db` option will automatically save output to database and return `Matriphe\Imageupload\ImageuploadModel` object.
 
 ### Example
 
