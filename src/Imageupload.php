@@ -397,17 +397,16 @@ class Imageupload
     {
         $model = new ImageuploadModel;
         $fillable = $model->getFillable();
-        $input = $collection->only($fillable);
+        $input = $collection->only($fillable)->toArray();
         
         $dimensions = $collection['dimensions'];
         
-        foreach ($dimensions as $key => $dimension) 
-        {
+        foreach ($dimensions as $key => $dimension) {
             foreach ($dimension as $k => $v) {
-                $input->push([$key.'_'.$k => $v]);
+                $input[$key.'_'.$k] = $v;
             }
         }
         
-        return $model->firstOrCreate($input->toArray());
+        return $model->firstOrCreate($input);
     }
 }

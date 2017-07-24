@@ -88,9 +88,21 @@ After running this command, there will be `config/imageupload.php` config file a
 
 Please check the `config/imageupload.php` for more detail. You can use `.env` to config based on your environment.
 
+If you want to publish the configuration file only, run this command.
+
+```bash
+php artisan vendor:publish --provider="Matriphe\Imageupload\ImageuploadServiceProvider" --tag=config
+```
+
 ### Migration
 
-By default, migration file will create `image_uploads` table. Check the file and modify to fit your need.
+By default, a migration file will create `image_uploads` table. Check the file and modify to fit your need.
+
+If you want to publish the migration file only, run this command.
+
+```bash
+php artisan vendor:publish --provider="Matriphe\Imageupload\ImageuploadServiceProvider --tag=migrations"
+```
 
 ### Model
 

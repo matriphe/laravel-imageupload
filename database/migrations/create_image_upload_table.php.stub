@@ -44,6 +44,7 @@ class CreateImageUploadTable extends Migration
                     $table->integer($key.'_filesize')->unsigned();
                     $table->smallInteger($key.'_width')->unsigned();
                     $table->smallInteger($key.'_height')->unsigned();
+                    $table->boolean($key.'_is_squared')->unsigned()->nullable();
                 }
                 
                 $table->timestamps();
