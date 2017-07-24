@@ -41,16 +41,15 @@ return [
    * array(width, height, squared), if square set to TRUE, image will be in square
    */
    'dimensions' => [
-
-     'square50' => [50, 50, true],
-     'square100' => [100, 100, true],
-     'square200' => [200, 200, true],
-     'square400' => [400, 400, true],
-
-     'size50' => [50, 50, false],
-     'size100' => [100, 100, false],
-     'size200' => [200, 200, false],
-     'size400' => [400, 400, false],
+        'square50' => [50, 50, true],
+        'square100' => [100, 100, true],
+        'square200' => [200, 200, true],
+        'square400' => [400, 400, true],
+        
+        'size50' => [50, 50, false],
+        'size100' => [100, 100, false],
+        'size200' => [200, 200, false],
+        'size400' => [400, 400, false],
    ],
 
    /*
@@ -78,7 +77,14 @@ return [
     * Options:
     *     - collection: set output as Illuminate\Support\Collection
     *     - json: set output as JSON
+    *     - db: set output to database and return Model collection
     *     - array (default): set output as array
     */
    'output' => env('IMAGEUPLOAD_OUTPUT', 'array'),
+   
+   /*
+    * Table name to hold the image data in database. Will be used in Model.
+    */
+    'table' => 'image_uploads',
+    
 ];

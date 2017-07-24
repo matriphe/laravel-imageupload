@@ -8,11 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class ImageuploadModel extends Model
 {
     /**
-     * The table associated with the model.
+     * Create a new Eloquent model instance.
      *
-     * @var string
+     * @param  array  $attributes
+     * @return void
      */
-    protected $table = 'image_uploads';
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        
+        $tableName = Config::get('imageupload.table', 'image_uploads');
+        
+        $this->setTable($tableName);
+    }
 
     /**
      * The keys used in thumbnail.

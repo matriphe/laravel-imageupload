@@ -84,7 +84,7 @@ class Imageupload
      */
     public function output($string = null)
     {
-        if (in_array($string, ['collection', 'json', 'array'])) {
+        if (in_array($string, ['collection', 'json', 'array', 'db'])) {
             $this->output = $string;
         }
         
@@ -371,6 +371,9 @@ class Imageupload
         $collection = new Collection($this->results);
         
         switch ($this->output) {
+            case 'db':
+                return $this->saveToDatabase($collection);
+                break;
             case 'collection':
                 return $collection;
                 break;
@@ -381,5 +384,30 @@ class Imageupload
             default:
                 return $collection->toArray();
         }
+    }
+    
+    /**
+     * Save output to database and return Model collection.
+     * 
+     * @access private
+     * @param Collection $collection
+     * @return ImageuploadModel
+     */
+    private function saveToDatabase(Collection $collection)
+    {
+        $model = new ImageuploadModel;
+        $fillable = $model->getFillable();
+        $input = $collection->only($fillable);
+        
+        $dimensions = $collection['dimensions'];
+        
+        foreach ($dimensions as $key => $dimension) 
+        {
+            foreach ($dimension as $k => $v) {
+                $input->push([$key.'_'.$k => $v]);
+            }
+        }
+        
+        return $model->firstOrCreate($input->toArray());
     }
 }
