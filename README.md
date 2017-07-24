@@ -41,8 +41,8 @@ Upload image easily using Laravel's build in function and resize it automaticall
 :---------|:------------|:--------------------
  4.2.x    | [4.x](https://github.com/matriphe/laravel-imageupload/blob/laravel42/README.md) (obselete) | `composer require "matriphe/imageupload:4.2.*"`
  5.0.x / 5.1.x / 5.2.x / 5.3.x / 5.4.x   | [5.x](https://github.com/matriphe/laravel-imageupload/blob/laravel5/README.md) (stable) | `composer require "matriphe/imageupload:5.*"`
- 5.0.x / 5.1.x / 5.2.x / 5.3.x / 5.4.x    | 6.0 | `composer require "matriphe/imageupload:6.0.*"`
- 5.2.x / 5.3.x / 5.4.x    | 6.1 (latest) | `composer require "matriphe/imageupload:6.1.*"`
+ 5.0.x / 5.1.x / 5.2.x / 5.3.x / 5.4.x    | 6.0 | `composer require "matriphe/imageupload:6.0"`
+ 5.2.x / 5.3.x / 5.4.x    | 6.1.x (latest) | `composer require "matriphe/imageupload:6.1.*"`
 
 The old version was following Laravel version. Now this package will use [semantic version (semver)](http://semver.org/) start from version 6.0.
 
