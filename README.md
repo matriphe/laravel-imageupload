@@ -933,7 +933,13 @@ Matriphe\Imageupload\ImageuploadModel Object
 
 ## Changelog
 
-### Version 6.x
+### Version 6.1
+
+* Support output type `json`, `array`, `collection`, and `db`
+* Add support to change output type using `output()` method
+* Remove support for Laravel 5.0 and 5.1
+
+### Version 6.0
 
 * Start using [semantic version (semver)](http://semver.org/) for versioning
 * Using [Intervention](http://image.intervention.io/use/basics) for image processing
