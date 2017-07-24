@@ -124,7 +124,7 @@ Add this in your views directory.
 
 Just use the `Imageupload::upload(Request::file('file'))` function and it will take care of cropping and renaming. Of course, you can modify on the fly by passing parameter `Imageupload::upload($filesource, $newfilename, $path)`.
 
-The return of the function is **array**.
+The return of the function is instance of `Illuminate\Support\Collection`. You can easily convert to array or JSON by using `toArray()` or `toJson()` method.
 
 ### Example
 
@@ -134,9 +134,11 @@ if (Request::hasFile('file')) {
 }
 ```
 
-### Output
+### Output Example
 
 ```array
+
+// toArray()
 Array
 (
     [original_filename] => IMG_20170619_195131.jpg

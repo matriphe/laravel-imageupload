@@ -7,6 +7,7 @@ use Config;
 use Exception;
 use File;
 use Illuminate\Support\Str;
+use Illuminate\Support\Collection;
 use Intervention\Image\ImageManager;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -71,7 +72,7 @@ class Imageupload
 
         $this->createThumbnails($uploadedFile);
 
-        return $this->results;
+        return $this->convertToCollection();
     }
 
     /**
@@ -172,7 +173,7 @@ class Imageupload
      */
     private function getRelativePath($absoluteTargetPath)
     {
-        return trim(dirname(str_replace(public_path(), '', $absoluteTargetPath)), '/');
+        return trim(str_replace(public_path(), '', $absoluteTargetPath), '/');
     }
 
     /**
@@ -340,5 +341,18 @@ class Imageupload
         }
 
         return $this;
+    }
+    
+    /**
+     * Convert results to collection.
+     * 
+     * @access private
+     * @return Collection
+     */
+    private function convertToCollection()
+    {
+        $collection = new Collection($this->results);
+        
+        return $collection;
     }
 }

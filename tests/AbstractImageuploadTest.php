@@ -6,6 +6,7 @@ use Intervention\Image\ImageManager;
 use Matriphe\Imageupload\Imageupload;
 use Orchestra\Testbench\TestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Illuminate\Support\Collection;
 
 abstract class AbstractImageuploadTest extends TestCase
 {
@@ -89,6 +90,9 @@ abstract class AbstractImageuploadTest extends TestCase
         $this->additionaMockAssertion();
 
         $result = $this->imageupload->upload($this->uploadedFile, $this->customFilename);
+        
+        $this->assertTrue($result instanceof Collection);
+        $result = $result->toArray();
 
         $this->imageuploadResultIsValid($result);
         $this->checkThumbnailPath($result);
