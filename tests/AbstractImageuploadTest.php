@@ -1,14 +1,14 @@
 <?php
 
+use Illuminate\Support\Collection;
 use Intervention\Image\AbstractDriver;
 use Intervention\Image\Image;
 use Intervention\Image\ImageManager;
 use Matriphe\Imageupload\Imageupload;
 use Matriphe\Imageupload\ImageuploadModel;
+use Orchestra\Database\ConsoleServiceProvider;
 use Orchestra\Testbench\TestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Illuminate\Support\Collection;
-use Orchestra\Database\ConsoleServiceProvider;
 
 abstract class AbstractImageuploadTest extends TestCase
 {
@@ -69,7 +69,7 @@ abstract class AbstractImageuploadTest extends TestCase
             'getClientOriginalExtension' => 'jpg',
             'getSize' => (1024 * 1024 * 1024), // 1 MB
         ]);
-        
+
         // Do migration
         $this->loadMigrationsFrom(realpath(__DIR__.'/../database/migrations'));
         $this->artisan('migrate', ['--database' => 'testing']);
@@ -96,54 +96,54 @@ abstract class AbstractImageuploadTest extends TestCase
         $this->additionaMockAssertion();
 
         $result = $this->imageupload->upload($this->uploadedFile, $this->customFilename);
-        
+
         $this->imageuploadResultIsValidArray($result);
         $this->checkThumbnailPath($result);
         $this->additionaAssertion($result);
     }
-    
+
     /**
      * @test
      */
     public function testImageuploadSuccessReturnJson()
     {
         $this->mockTargetUploadPathExistsAndWriteable();
-        
+
         $result = $this->imageupload->output('json')->upload($this->uploadedFile, $this->customFilename);
-        
+
         $this->assertTrue(is_string($result));
     }
-    
+
     /**
      * @test
      */
     public function testImageuploadSuccessReturnCollection()
     {
         $this->mockTargetUploadPathExistsAndWriteable();
-        
+
         $result = $this->imageupload->output('collection')->upload($this->uploadedFile, $this->customFilename);
-        
+
         $this->assertTrue($result instanceof Collection);
         $this->assertTrue(is_array($result->toArray()));
         $this->assertTrue(is_string($result->toJson()));
     }
-    
+
     /**
      * @test
      */
     public function testImageuploadSuccessReturnImageuploadModel()
     {
         $this->mockTargetUploadPathExistsAndWriteable();
-        
-        $result = $this->imageupload->output('db')->upload($this->uploadedFile, $this->customFilename); 
+
+        $result = $this->imageupload->output('db')->upload($this->uploadedFile, $this->customFilename);
         $resultFromDb = ImageuploadModel::first();
-        
+
         $resultArray = $result->toArray();
         $resultFromDbArray = $resultFromDb->toArray();
-        
+
         ksort($resultArray);
         ksort($resultFromDbArray);
-        
+
         $this->assertTrue($result instanceof ImageuploadModel);
         $this->assertSame($resultArray, $resultFromDbArray);
     }
@@ -164,13 +164,13 @@ abstract class AbstractImageuploadTest extends TestCase
         ]);
         $app['config']->set('imageupload.newfilename', $this->newfilename);
         $app['config']->set('imageupload.suffix', $this->suffix);
-        
+
         // Database config
         $app['config']->set('database.default', 'testing');
         $app['config']->set('database.connections.testing', [
-            'driver'   => 'sqlite',
+            'driver' => 'sqlite',
             'database' => ':memory:',
-            'prefix'   => '',
+            'prefix' => '',
         ]);
     }
 
@@ -290,12 +290,12 @@ abstract class AbstractImageuploadTest extends TestCase
     {
         return $this;
     }
-    
+
     /**
      * Load package other providers.
-     * 
+     *
      * @access protected
-     * @param \Illuminate\Foundation\Application $app
+     * @param  \Illuminate\Foundation\Application $app
      * @return array
      */
     protected function getPackageProviders($app)

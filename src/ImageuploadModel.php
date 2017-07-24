@@ -8,37 +8,22 @@ use Illuminate\Database\Eloquent\Model;
 class ImageuploadModel extends Model
 {
     /**
-     * Create a new Eloquent model instance.
-     *
-     * @param  array  $attributes
-     * @return void
-     */
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-        
-        $tableName = Config::get('imageupload.table', 'image_uploads');
-        
-        $this->setTable($tableName);
-    }
-    
-    /**
      * The attributes that should be cast to native types.
      *
      * @var array
      */
     protected $casts = [
-        'original_filename' => 'string', 
-        'original_filepath' => 'string', 
+        'original_filename' => 'string',
+        'original_filepath' => 'string',
         'original_filedir' => 'string',
-        'original_extension' => 'string', 
-        'original_mime' => 'string', 
+        'original_extension' => 'string',
+        'original_mime' => 'string',
         'original_filesize' => 'integer',
-        'original_width' => 'integer', 
+        'original_width' => 'integer',
         'original_height' => 'integer',
-        'path' => 'string', 
-        'dir' => 'string', 
-        'filename' => 'string', 
+        'path' => 'string',
+        'dir' => 'string',
+        'filename' => 'string',
         'basename' => 'string',
         'exif' => 'array',
     ];
@@ -49,14 +34,14 @@ class ImageuploadModel extends Model
      * @var array
      */
     protected $thumbnailKeys = [
-        'path' => 'string', 
-        'dir' => 'string', 
-        'filename' => 'string', 
-        'filepath' => 'string', 
-        'filedir' => 'string', 
-        'width' => 'integer', 
+        'path' => 'string',
+        'dir' => 'string',
+        'filename' => 'string',
+        'filepath' => 'string',
+        'filedir' => 'string',
+        'width' => 'integer',
         'height' => 'integer',
-        'filesize' => 'integer', 
+        'filesize' => 'integer',
         'is_squared' => 'boolean',
     ];
 
@@ -72,6 +57,20 @@ class ImageuploadModel extends Model
         'path', 'dir', 'filename', 'basename',
         'exif',
     ];
+
+    /**
+     * Create a new Eloquent model instance.
+     *
+     * @param array $attributes
+     */
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+
+        $tableName = Config::get('imageupload.table', 'image_uploads');
+
+        $this->setTable($tableName);
+    }
 
     /**
      * Get dimension fillable field.
@@ -96,7 +95,7 @@ class ImageuploadModel extends Model
 
         return $fillable;
     }
-    
+
     /**
      * Get the casts array.
      *
@@ -105,7 +104,7 @@ class ImageuploadModel extends Model
     public function getCasts()
     {
         $this->casts = parent::getCasts();
-        
+
         $dimensions = Config::get('imageupload.dimensions');
 
         if (empty($dimensions) || ! is_array($dimensions)) {
@@ -117,7 +116,7 @@ class ImageuploadModel extends Model
                 $this->casts[$name.'_'.$key] = $cast;
             }
         }
-        
+
         return $this->casts;
     }
 

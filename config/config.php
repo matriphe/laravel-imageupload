@@ -45,7 +45,7 @@ return [
         'square100' => [100, 100, true],
         'square200' => [200, 200, true],
         'square400' => [400, 400, true],
-        
+
         'size50' => [50, 50, false],
         'size100' => [100, 100, false],
         'size200' => [200, 200, false],
@@ -70,7 +70,7 @@ return [
     *     - FALSE (default): ignore exif data
     */
    'exif' => env('IMAGEUPLOAD_EXIF', false),
-   
+
    /*
     * The return output type.
     *
@@ -81,10 +81,10 @@ return [
     *     - array (default): set output as array
     */
    'output' => env('IMAGEUPLOAD_OUTPUT', 'array'),
-   
+
    /*
     * Table name to hold the image data in database. Will be used in Model.
     */
     'table' => 'image_uploads',
-    
+
 ];

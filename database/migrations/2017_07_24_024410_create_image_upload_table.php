@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 use Matriphe\Imageupload\ImageuploadModel;
 
 class CreateImageUploadTable extends Migration
@@ -10,11 +10,10 @@ class CreateImageUploadTable extends Migration
     {
         $this->table = (new ImageuploadModel())->getTable();
     }
-    
+
     /**
      * Run the migrations.
      *
-     * @return void
      */
     public function up()
     {
@@ -34,7 +33,7 @@ class CreateImageUploadTable extends Migration
                 $table->string('filename')->nullable();
                 $table->string('basename')->nullable();
                 $table->text('exif')->nullable();
-                
+
                 foreach (Config::get('imageupload.dimensions') as $key => $dimension) {
                     $table->string($key.'_path')->nullable();
                     $table->string($key.'_dir')->nullable();
@@ -46,16 +45,15 @@ class CreateImageUploadTable extends Migration
                     $table->smallInteger($key.'_height')->unsigned()->nullable();
                     $table->boolean($key.'_is_squared')->unsigned()->nullable();
                 }
-                
+
                 $table->timestamps();
-            });    
+            });
         }
     }
 
     /**
      * Reverse the migrations.
      *
-     * @return void
      */
     public function down()
     {

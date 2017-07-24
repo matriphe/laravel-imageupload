@@ -4,7 +4,6 @@ use Intervention\Image\AbstractDriver;
 use Intervention\Image\Image;
 use Intervention\Image\ImageManager;
 use Matriphe\Imageupload\Imageupload;
-use Matriphe\Imageupload\ImageuploadException;
 use Orchestra\Testbench\TestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -49,39 +48,47 @@ class ImageuploadExceptionsTest extends TestCase
         parent::tearDown();
     }
 
+    /**
+     * @test
+     * @expectedException \Matriphe\Imageupload\ImageuploadException
+     */
     public function testTargetUploadDirectoryNotExists()
     {
         File::shouldReceive('isDirectory')->atLeast()->times(1)->andReturn(false);
 
-        $this->setExpectedException(ImageuploadException::class);
-
         $result = $this->imageupload->upload($this->uploadedFile);
     }
 
+    /**
+     * @test
+     * @expectedException \Matriphe\Imageupload\ImageuploadException
+     */
     public function testTargetUploadDirectoryNotWriteable()
     {
         File::shouldReceive('isDirectory')->once()->andReturn(true);
         File::shouldReceive('isWritable')->once()->andReturn(false);
 
-        $this->setExpectedException(ImageuploadException::class);
-
         $result = $this->imageupload->upload($this->uploadedFile);
     }
 
+    /**
+     * @test
+     * @expectedException \Matriphe\Imageupload\ImageuploadException
+     */
     public function testCannotCreateTargetUpload()
     {
         File::shouldReceive('isDirectory')->once()->andReturn(false);
         File::shouldReceive('makeDirectory')->once()->andReturn(false);
 
-        $this->setExpectedException(ImageuploadException::class);
-
         $result = $this->imageupload->upload($this->uploadedFile);
     }
 
+    /**
+     * @test
+     * @expectedException \Matriphe\Imageupload\ImageuploadException
+     */
     public function testFileNotImage()
     {
-        $this->setExpectedException(ImageuploadException::class);
-
         $result = $this->imageupload->upload($this->uploadedFile);
     }
 }

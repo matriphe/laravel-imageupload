@@ -6,8 +6,8 @@ use Carbon\Carbon;
 use Config;
 use Exception;
 use File;
-use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Intervention\Image\ImageManager;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -74,20 +74,19 @@ class Imageupload
 
         return $this->returnOutput();
     }
-    
+
     /**
      * Set output on the fly.
-     * 
+     *
      * @access public
      * @param string $string (default: null)
-     * @return void
      */
     public function output($string = null)
     {
         if (in_array($string, ['collection', 'json', 'array', 'db'])) {
             $this->output = $string;
         }
-        
+
         return $this;
     }
 
@@ -359,17 +358,17 @@ class Imageupload
 
         return $this;
     }
-    
+
     /**
      * Return output.
-     * 
+     *
      * @access private
      * @return mixed
      */
     private function returnOutput()
     {
         $collection = new Collection($this->results);
-        
+
         switch ($this->output) {
             case 'db':
                 return $this->saveToDatabase($collection);
@@ -385,28 +384,28 @@ class Imageupload
                 return $collection->toArray();
         }
     }
-    
+
     /**
      * Save output to database and return Model collection.
-     * 
+     *
      * @access private
-     * @param Collection $collection
+     * @param  Collection       $collection
      * @return ImageuploadModel
      */
     private function saveToDatabase(Collection $collection)
     {
-        $model = new ImageuploadModel;
+        $model = new ImageuploadModel();
         $fillable = $model->getFillable();
         $input = $collection->only($fillable)->toArray();
-        
+
         $dimensions = $collection['dimensions'];
-        
+
         foreach ($dimensions as $key => $dimension) {
             foreach ($dimension as $k => $v) {
                 $input[$key.'_'.$k] = $v;
             }
         }
-        
+
         return $model->firstOrCreate($input);
     }
 }
