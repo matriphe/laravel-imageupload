@@ -7,6 +7,8 @@ env:
 matrix:
   include:
     - php: 5.5
+      env: ILLUMINATE_VERSION=5.0.*
+    - php: 5.5
       env: ILLUMINATE_VERSION=5.1.*
     - php: 5.5
       env: ILLUMINATE_VERSION=5.2.*
@@ -15,6 +17,8 @@ matrix:
     - php: 5.5
       env: ILLUMINATE_VERSION=5.4.*
     - php: 5.6
+      env: ILLUMINATE_VERSION=5.0.*
+    - php: 5.6
       env: ILLUMINATE_VERSION=5.1.*
     - php: 5.6
       env: ILLUMINATE_VERSION=5.2.*
@@ -23,6 +27,8 @@ matrix:
     - php: 5.6
       env: ILLUMINATE_VERSION=5.4.*
     - php: 7.0
+      env: ILLUMINATE_VERSION=5.0.*
+    - php: 7.0
       env: ILLUMINATE_VERSION=5.1.*
     - php: 7.0
       env: ILLUMINATE_VERSION=5.2.*
@@ -31,6 +37,8 @@ matrix:
     - php: 7.0
       env: ILLUMINATE_VERSION=5.4.*
     - php: 7.1
+      env: ILLUMINATE_VERSION=5.0.*
+    - php: 7.1
       env: ILLUMINATE_VERSION=5.1.*
     - php: 7.1
       env: ILLUMINATE_VERSION=5.2.*
@@ -38,6 +46,8 @@ matrix:
       env: ILLUMINATE_VERSION=5.3.*
     - php: 7.1
       env: ILLUMINATE_VERSION=5.4.*
+    - php: hhvm
+      env: ILLUMINATE_VERSION=5.0.*
     - php: hhvm
       env: ILLUMINATE_VERSION=5.1.*
     - php: hhvm
@@ -49,7 +59,7 @@ matrix:
 
 before_install:
   - travis_retry composer self-update
-  - travis_retry composer require "laravel/framework:${ILLUMINATE_VERSION}" --no-update
+  - travis_retry composer require "laravel/framework:${ILLUMINATE_VERSION}" --no-interaction --no-update
 
 install: 
   - travis_retry composer update --prefer-source --no-interaction
