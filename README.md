@@ -28,6 +28,7 @@ The older (stable) version was using [Imagine library](https://imagine.readthedo
       * [JSON](#json)
       * [Array](#array)
       * [Collection](#collection)
+      * [ImageuploadModel](#imageuploadmodel)
   * [Changelog](#changelog)
     * [Version 6\.x](#version-6x)
     * [Version 5\.x and 4\.2\.x](#version-5x-and-42x)
@@ -42,7 +43,7 @@ The older (stable) version was using [Imagine library](https://imagine.readthedo
 :---------|:------------|:--------------------
  4.2.x    | [4.x](https://github.com/matriphe/laravel-imageupload/blob/laravel42/README.md) (obselete) | `composer require "matriphe/imageupload:4.2.*"`
  5.0.x / 5.1.x / 5.2.x / 5.3.x / 5.4.x   | [5.x](https://github.com/matriphe/laravel-imageupload/blob/laravel5/README.md) (stable) | `composer require "matriphe/imageupload:5.*"`
- 5.0.x / 5.1.x / 5.2.x / 5.3.x / 5.4.x    | 6.x (latest) | `composer require "matriphe/imageupload:6.*"`
+ 5.2.x / 5.3.x / 5.4.x    | 6.x (latest) | `composer require "matriphe/imageupload:6.*"`
 
 The old version was following Laravel version. Now this package will use [semantic version (semver)](http://semver.org/) start from version 6.0.
 
