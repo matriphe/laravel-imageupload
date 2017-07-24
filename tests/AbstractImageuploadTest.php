@@ -91,14 +91,35 @@ abstract class AbstractImageuploadTest extends TestCase
 
         $result = $this->imageupload->upload($this->uploadedFile, $this->customFilename);
         
-        $this->assertTrue($result instanceof Collection);
-        $result = $result->toArray();
-
-        $this->imageuploadResultIsValid($result);
+        $this->imageuploadResultIsValidArray($result);
         $this->checkThumbnailPath($result);
         $this->additionaAssertion($result);
-
-        //dump($result);
+    }
+    
+    /**
+     * @test
+     */
+    public function testImageuploadSuccessReturnJson()
+    {
+        $this->mockTargetUploadPathExistsAndWriteable();
+        
+        $result = $this->imageupload->output('json')->upload($this->uploadedFile, $this->customFilename);
+        
+        $this->assertTrue(is_string($result));
+    }
+    
+    /**
+     * @test
+     */
+    public function testImageuploadSuccessReturnCollection()
+    {
+        $this->mockTargetUploadPathExistsAndWriteable();
+        
+        $result = $this->imageupload->output('collection')->upload($this->uploadedFile, $this->customFilename);
+        
+        $this->assertTrue($result instanceof Collection);
+        $this->assertTrue(is_array($result->toArray()));
+        $this->assertTrue(is_string($result->toJson()));
     }
 
     /**
@@ -156,7 +177,7 @@ abstract class AbstractImageuploadTest extends TestCase
      * @access protected
      * @param array $result
      */
-    protected function imageuploadResultIsValid($result)
+    protected function imageuploadResultIsValidArray($result)
     {
         $this->assertTrue(is_array($result));
 

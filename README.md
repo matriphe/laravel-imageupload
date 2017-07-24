@@ -9,6 +9,31 @@ Upload image easily using Laravel's build in function and resize it using [Inter
 
 The older (stable) version was using [Imagine library](https://imagine.readthedocs.org/en/latest/).
 
+---
+
+  * [Version Compatibility](#version-compatibility)
+  * [Installation](#installation)
+    * [Laravel 5\.x Installation](#laravel-5x-installation)
+  * [Publish Configuration and Migration File](#publish-configuration-and-migration-file)
+    * [Configuration](#configuration)
+    * [Migration](#migration)
+    * [Model](#model)
+  * [Try Upload Something\!](#try-upload-something)
+    * [Route Example](#route-example)
+    * [View](#view)
+  * [Usage](#usage)
+    * [Example](#example)
+    * [Output Example](#output-example)
+      * [JSON](#json)
+      * [Array](#array)
+  * [Changelog](#changelog)
+    * [Version 6\.x](#version-6x)
+    * [Version 5\.x and 4\.2\.x](#version-5x-and-42x)
+  * [Next Feature](#next-feature)
+  * [License](#license)
+
+---
+
 ## Version Compatibility
 
  Laravel  | Imageupload | Installation Command
@@ -69,6 +94,20 @@ By default, migration file will create `image_uploads` table. Check the file and
 
 You can create a model to extend the built-in model, by extending `Matriphe\Imageupload\ImageuploadModel`. Please check this file too and adjust to fit your need.
 
+```php
+<?php
+
+namespace App;
+
+use Matriphe\Imageupload\ImageuploadModel;
+
+class Image extends ImageuploadModel
+{
+    protected $table = 'images';
+}
+
+```
+
 ## Try Upload Something!
 
 After publishing the configuration file, you can set up a route, view, and start upload something.
@@ -82,7 +121,6 @@ Make sure the directory to store uploaded files is writable and can be accessed 
 ```php
 <?php
 // routes.php
-...
 Route::any('matriphe/imageupload', function() 
 {
     $data = [];
@@ -126,24 +164,214 @@ Just use the `Imageupload::upload(Request::file('file'))` function and it will t
 
 The return of the function is instance of `Illuminate\Support\Collection`. You can easily convert to array or JSON by using `toArray()` or `toJson()` method.
 
+### Set Output
+
+To change the output on fly, use method `ouput($output)` before calling `upload($request)`. The options is `collection`, `json`, and `array` (default). See the config file to set the default output.
+
 ### Example
 
 ```php
 if (Request::hasFile('file')) {
     $result = Imageupload::upload(Request::file('file'));
 }
+
+if (Request::hasFile('file')) {
+    $result = Imageupload::output('json')->upload(Request::file('file'));
+}
 ```
 
 ### Output Example
 
-```array
+#### JSON
 
-// toArray()
+```json
+{  
+    "original_filename":"IMG_20170619_195131.jpg",
+    "original_filepath":"\/Volumes\/data\/Development\/php\/laravel\/51\/public\/uploads\/images\/IMG_20170619_195131.jpg",
+    "original_filedir":"uploads\/images\/IMG_20170619_195131.jpg",
+    "original_extension":"jpg",
+    "original_mime":"image\/jpeg",
+    "original_filesize":1379716,
+    "original_width":2592,
+    "original_height":4608,
+    "exif":{  
+        "FileName":"phpPfn2JP",
+        "FileDateTime":1500894790,
+        "FileSize":1379716,
+        "FileType":2,
+        "MimeType":"image\/jpeg",
+        "SectionsFound":"ANY_TAG, IFD0, THUMBNAIL, EXIF, GPS, INTEROP",
+        "COMPUTED":{  
+            "html":"width=\"2592\" height=\"4608\"",
+            "Height":4608,
+            "Width":2592,
+            "IsColor":1,
+            "ByteOrderMotorola":1,
+            "ApertureFNumber":"f\/2.0",
+            "Thumbnail.FileType":2,
+            "Thumbnail.MimeType":"image\/jpeg"
+        },
+        "Make":"Xiaomi",
+        "Model":"Redmi Note3",
+        "XResolution":"72\/1",
+        "YResolution":"72\/1",
+        "ResolutionUnit":2,
+        "Software":"kenzo-user 6.0.1 MMB29M 7.6.7 release-keys",
+        "DateTime":"2017:06:19 19:51:31",
+        "YCbCrPositioning":1,
+        "Exif_IFD_Pointer":234,
+        "GPS_IFD_Pointer":718,
+        "THUMBNAIL":{  
+            "Compression":6,
+            "XResolution":"72\/1",
+            "YResolution":"72\/1",
+            "ResolutionUnit":2,
+            "JPEGInterchangeFormat":898,
+            "JPEGInterchangeFormatLength":15696
+        },
+        "ExposureTime":"1\/33",
+        "FNumber":"200\/100",
+        "ExposureProgram":0,
+        "ISOSpeedRatings":854,
+        "ExifVersion":"0220",
+        "DateTimeOriginal":"2017:06:19 19:51:31",
+        "DateTimeDigitized":"2017:06:19 19:51:31",
+        "ComponentsConfiguration":"\u0001\u0002\u0003\u0000",
+        "ShutterSpeedValue":"5058\/1000",
+        "ApertureValue":"200\/100",
+        "BrightnessValue":"300\/100",
+        "MeteringMode":1,
+        "Flash":16,
+        "FocalLength":"357\/100",
+        "SubSecTime":"123298",
+        "SubSecTimeOriginal":"123298",
+        "SubSecTimeDigitized":"123298",
+        "FlashPixVersion":"0100",
+        "ColorSpace":1,
+        "ExifImageWidth":2592,
+        "ExifImageLength":4608,
+        "InteroperabilityOffset":687,
+        "SensingMethod":2,
+        "SceneType":"\u0001",
+        "ExposureMode":0,
+        "WhiteBalance":0,
+        "FocalLengthIn35mmFilm":4,
+        "SceneCaptureType":0,
+        "GPSAltitudeRef":"200\/100",
+        "GPSTimeStamp":[  
+            "12\/1",
+            "51\/1",
+            "30\/1"
+        ],
+        "GPSDateStamp":"2017:06:19",
+        "InterOperabilityIndex":"R98",
+        "InterOperabilityVersion":"0100"
+    },
+    "path":"\/Volumes\/data\/Development\/php\/laravel\/51\/public\/uploads\/images",
+    "dir":"uploads\/images",
+    "filename":"IMG_20170619_195131.jpg",
+    "basename":"IMG_20170619_195131",
+    "dimensions":{  
+        "square50":{  
+            "path":"\/Volumes\/data\/Development\/php\/laravel\/51\/public\/uploads\/images",
+            "dir":"uploads\/images\/IMG_20170619_195131_square50.jpg",
+            "filename":"IMG_20170619_195131_square50.jpg",
+            "filepath":"\/Volumes\/data\/Development\/php\/laravel\/51\/public\/uploads\/images\/IMG_20170619_195131_square50.jpg",
+            "filedir":"uploads\/images\/IMG_20170619_195131_square50.jpg",
+            "width":50,
+            "height":50,
+            "filesize":1379716,
+            "is_squared":true
+        },
+        "square100":{  
+            "path":"\/Volumes\/data\/Development\/php\/laravel\/51\/public\/uploads\/images",
+            "dir":"uploads\/images\/IMG_20170619_195131_square100.jpg",
+            "filename":"IMG_20170619_195131_square100.jpg",
+            "filepath":"\/Volumes\/data\/Development\/php\/laravel\/51\/public\/uploads\/images\/IMG_20170619_195131_square100.jpg",
+            "filedir":"uploads\/images\/IMG_20170619_195131_square100.jpg",
+            "width":100,
+            "height":100,
+            "filesize":1379716,
+            "is_squared":true
+        },
+        "square200":{  
+            "path":"\/Volumes\/data\/Development\/php\/laravel\/51\/public\/uploads\/images",
+            "dir":"uploads\/images\/IMG_20170619_195131_square200.jpg",
+            "filename":"IMG_20170619_195131_square200.jpg",
+            "filepath":"\/Volumes\/data\/Development\/php\/laravel\/51\/public\/uploads\/images\/IMG_20170619_195131_square200.jpg",
+            "filedir":"uploads\/images\/IMG_20170619_195131_square200.jpg",
+            "width":200,
+            "height":200,
+            "filesize":1379716,
+            "is_squared":true
+        },
+        "square400":{  
+            "path":"\/Volumes\/data\/Development\/php\/laravel\/51\/public\/uploads\/images",
+            "dir":"uploads\/images\/IMG_20170619_195131_square400.jpg",
+            "filename":"IMG_20170619_195131_square400.jpg",
+            "filepath":"\/Volumes\/data\/Development\/php\/laravel\/51\/public\/uploads\/images\/IMG_20170619_195131_square400.jpg",
+            "filedir":"uploads\/images\/IMG_20170619_195131_square400.jpg",
+            "width":400,
+            "height":400,
+            "filesize":1379716,
+            "is_squared":true
+        },
+        "size50":{  
+            "path":"\/Volumes\/data\/Development\/php\/laravel\/51\/public\/uploads\/images",
+            "dir":"uploads\/images\/IMG_20170619_195131_size50.jpg",
+            "filename":"IMG_20170619_195131_size50.jpg",
+            "filepath":"\/Volumes\/data\/Development\/php\/laravel\/51\/public\/uploads\/images\/IMG_20170619_195131_size50.jpg",
+            "filedir":"uploads\/images\/IMG_20170619_195131_size50.jpg",
+            "width":28,
+            "height":50,
+            "filesize":1379716,
+            "is_squared":false
+        },
+        "size100":{  
+            "path":"\/Volumes\/data\/Development\/php\/laravel\/51\/public\/uploads\/images",
+            "dir":"uploads\/images\/IMG_20170619_195131_size100.jpg",
+            "filename":"IMG_20170619_195131_size100.jpg",
+            "filepath":"\/Volumes\/data\/Development\/php\/laravel\/51\/public\/uploads\/images\/IMG_20170619_195131_size100.jpg",
+            "filedir":"uploads\/images\/IMG_20170619_195131_size100.jpg",
+            "width":56,
+            "height":100,
+            "filesize":1379716,
+            "is_squared":false
+        },
+        "size200":{  
+            "path":"\/Volumes\/data\/Development\/php\/laravel\/51\/public\/uploads\/images",
+            "dir":"uploads\/images\/IMG_20170619_195131_size200.jpg",
+            "filename":"IMG_20170619_195131_size200.jpg",
+            "filepath":"\/Volumes\/data\/Development\/php\/laravel\/51\/public\/uploads\/images\/IMG_20170619_195131_size200.jpg",
+            "filedir":"uploads\/images\/IMG_20170619_195131_size200.jpg",
+            "width":112,
+            "height":200,
+            "filesize":1379716,
+            "is_squared":false
+        },
+        "size400":{  
+            "path":"\/Volumes\/data\/Development\/php\/laravel\/51\/public\/uploads\/images",
+            "dir":"uploads\/images\/IMG_20170619_195131_size400.jpg",
+            "filename":"IMG_20170619_195131_size400.jpg",
+            "filepath":"\/Volumes\/data\/Development\/php\/laravel\/51\/public\/uploads\/images\/IMG_20170619_195131_size400.jpg",
+            "filedir":"uploads\/images\/IMG_20170619_195131_size400.jpg",
+            "width":225,
+            "height":400,
+            "filesize":1379716,
+            "is_squared":false
+        }
+    }
+}
+```
+
+#### Array
+
+```array
 Array
 (
     [original_filename] => IMG_20170619_195131.jpg
-    [original_filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/aadecb1e623b1a3fd1ae3c1ad4137e96.jpg
-    [original_filedir] => uploads/images
+    [original_filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/IMG_20170619_195131.jpg
+    [original_filedir] => uploads/images/IMG_20170619_195131.jpg
     [original_extension] => jpg
     [original_mime] => image/jpeg
     [original_filesize] => 1379716
@@ -151,8 +379,8 @@ Array
     [original_height] => 4608
     [exif] => Array
         (
-            [FileName] => phpAzVzkv
-            [FileDateTime] => 1500799366
+            [FileName] => phpPfn2JP
+            [FileDateTime] => 1500894790
             [FileSize] => 1379716
             [FileType] => 2
             [MimeType] => image/jpeg
@@ -231,112 +459,112 @@ Array
         )
 
     [path] => /Volumes/data/Development/php/laravel/51/public/uploads/images
-    [dir] => uploads
-    [filename] => aadecb1e623b1a3fd1ae3c1ad4137e96.jpg
-    [basename] => aadecb1e623b1a3fd1ae3c1ad4137e96
+    [dir] => uploads/images
+    [filename] => IMG_20170619_195131.jpg
+    [basename] => IMG_20170619_195131
     [dimensions] => Array
         (
             [square50] => Array
                 (
                     [path] => /Volumes/data/Development/php/laravel/51/public/uploads/images
-                    [dir] => uploads/images
-                    [filename] => aadecb1e623b1a3fd1ae3c1ad4137e96_square50.jpg
-                    [filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/aadecb1e623b1a3fd1ae3c1ad4137e96_square50.jpg
-                    [filedir] => uploads/images
+                    [dir] => uploads/images/IMG_20170619_195131_square50.jpg
+                    [filename] => IMG_20170619_195131_square50.jpg
+                    [filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/IMG_20170619_195131_square50.jpg
+                    [filedir] => uploads/images/IMG_20170619_195131_square50.jpg
                     [width] => 50
                     [height] => 50
-                    [filesize] => 1725
+                    [filesize] => 1379716
                     [is_squared] => 1
                 )
 
             [square100] => Array
                 (
                     [path] => /Volumes/data/Development/php/laravel/51/public/uploads/images
-                    [dir] => uploads/images
-                    [filename] => aadecb1e623b1a3fd1ae3c1ad4137e96_square100.jpg
-                    [filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/aadecb1e623b1a3fd1ae3c1ad4137e96_square100.jpg
-                    [filedir] => uploads/images
+                    [dir] => uploads/images/IMG_20170619_195131_square100.jpg
+                    [filename] => IMG_20170619_195131_square100.jpg
+                    [filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/IMG_20170619_195131_square100.jpg
+                    [filedir] => uploads/images/IMG_20170619_195131_square100.jpg
                     [width] => 100
                     [height] => 100
-                    [filesize] => 3759
+                    [filesize] => 1379716
                     [is_squared] => 1
                 )
 
             [square200] => Array
                 (
                     [path] => /Volumes/data/Development/php/laravel/51/public/uploads/images
-                    [dir] => uploads/images
-                    [filename] => aadecb1e623b1a3fd1ae3c1ad4137e96_square200.jpg
-                    [filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/aadecb1e623b1a3fd1ae3c1ad4137e96_square200.jpg
-                    [filedir] => uploads/images
+                    [dir] => uploads/images/IMG_20170619_195131_square200.jpg
+                    [filename] => IMG_20170619_195131_square200.jpg
+                    [filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/IMG_20170619_195131_square200.jpg
+                    [filedir] => uploads/images/IMG_20170619_195131_square200.jpg
                     [width] => 200
                     [height] => 200
-                    [filesize] => 9924
+                    [filesize] => 1379716
                     [is_squared] => 1
                 )
 
             [square400] => Array
                 (
                     [path] => /Volumes/data/Development/php/laravel/51/public/uploads/images
-                    [dir] => uploads/images
-                    [filename] => aadecb1e623b1a3fd1ae3c1ad4137e96_square400.jpg
-                    [filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/aadecb1e623b1a3fd1ae3c1ad4137e96_square400.jpg
-                    [filedir] => uploads/images
+                    [dir] => uploads/images/IMG_20170619_195131_square400.jpg
+                    [filename] => IMG_20170619_195131_square400.jpg
+                    [filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/IMG_20170619_195131_square400.jpg
+                    [filedir] => uploads/images/IMG_20170619_195131_square400.jpg
                     [width] => 400
                     [height] => 400
-                    [filesize] => 28406
+                    [filesize] => 1379716
                     [is_squared] => 1
                 )
 
             [size50] => Array
                 (
                     [path] => /Volumes/data/Development/php/laravel/51/public/uploads/images
-                    [dir] => uploads/images
-                    [filename] => aadecb1e623b1a3fd1ae3c1ad4137e96_size50.jpg
-                    [filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/aadecb1e623b1a3fd1ae3c1ad4137e96_size50.jpg
-                    [filedir] => uploads/images
+                    [dir] => uploads/images/IMG_20170619_195131_size50.jpg
+                    [filename] => IMG_20170619_195131_size50.jpg
+                    [filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/IMG_20170619_195131_size50.jpg
+                    [filedir] => uploads/images/IMG_20170619_195131_size50.jpg
                     [width] => 28
                     [height] => 50
-                    [filesize] => 1304
+                    [filesize] => 1379716
                     [is_squared] => 
                 )
 
             [size100] => Array
                 (
                     [path] => /Volumes/data/Development/php/laravel/51/public/uploads/images
-                    [dir] => uploads/images
-                    [filename] => aadecb1e623b1a3fd1ae3c1ad4137e96_size100.jpg
-                    [filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/aadecb1e623b1a3fd1ae3c1ad4137e96_size100.jpg
-                    [filedir] => uploads/images
+                    [dir] => uploads/images/IMG_20170619_195131_size100.jpg
+                    [filename] => IMG_20170619_195131_size100.jpg
+                    [filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/IMG_20170619_195131_size100.jpg
+                    [filedir] => uploads/images/IMG_20170619_195131_size100.jpg
                     [width] => 56
                     [height] => 100
-                    [filesize] => 2504
+                    [filesize] => 1379716
                     [is_squared] => 
                 )
 
             [size200] => Array
                 (
                     [path] => /Volumes/data/Development/php/laravel/51/public/uploads/images
-                    [dir] => uploads/images
-                    [filename] => aadecb1e623b1a3fd1ae3c1ad4137e96_size200.jpg
-                    [filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/aadecb1e623b1a3fd1ae3c1ad4137e96_size200.jpg
-                    [filedir] => uploads/images
+                    [dir] => uploads/images/IMG_20170619_195131_size200.jpg
+                    [filename] => IMG_20170619_195131_size200.jpg
+                    [filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/IMG_20170619_195131_size200.jpg
+                    [filedir] => uploads/images/IMG_20170619_195131_size200.jpg
                     [width] => 112
                     [height] => 200
-                    [filesize] => 6324
+                    [filesize] => 1379716
                     [is_squared] => 
                 )
 
             [size400] => Array
                 (
                     [path] => /Volumes/data/Development/php/laravel/51/public/uploads/images
-                    [dir] => uploads/images
-                    [filename] => aadecb1e623b1a3fd1ae3c1ad4137e96_size400.jpg
-                    [filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/aadecb1e623b1a3fd1ae3c1ad4137e96_size400.jpg
-                    [filedir] => uploads/images
+                    [dir] => uploads/images/IMG_20170619_195131_size400.jpg
+                    [filename] => IMG_20170619_195131_size400.jpg
+                    [filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/IMG_20170619_195131_size400.jpg
+                    [filedir] => uploads/images/IMG_20170619_195131_size400.jpg
                     [width] => 225
                     [height] => 400
-                    [filesize] => 19123
+                    [filesize] => 1379716
                     [is_squared] => 
                 )
 

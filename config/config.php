@@ -71,4 +71,14 @@ return [
     *     - FALSE (default): ignore exif data
     */
    'exif' => env('IMAGEUPLOAD_EXIF', false),
+   
+   /*
+    * The return output type.
+    *
+    * Options:
+    *     - collection: set output as Illuminate\Support\Collection
+    *     - json: set output as JSON
+    *     - array (default): set output as array
+    */
+   'output' => env('IMAGEUPLOAD_OUTPUT', 'array'),
 ];

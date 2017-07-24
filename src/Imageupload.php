@@ -72,7 +72,23 @@ class Imageupload
 
         $this->createThumbnails($uploadedFile);
 
-        return $this->convertToCollection();
+        return $this->returnOutput();
+    }
+    
+    /**
+     * Set output on the fly.
+     * 
+     * @access public
+     * @param string $string (default: null)
+     * @return void
+     */
+    public function output($string = null)
+    {
+        if (in_array($string, ['collection', 'json', 'array'])) {
+            $this->output = $string;
+        }
+        
+        return $this;
     }
 
     /**
@@ -89,6 +105,7 @@ class Imageupload
         $this->dimensions = Config::get('imageupload.dimensions');
         $this->suffix = Config::get('imageupload.suffix', true);
         $this->exif = Config::get('imageupload.exif', false);
+        $this->output = Config::get('imageupload.output', 'array');
 
         $this->intervention->configure(['driver' => $this->library]);
 
@@ -344,15 +361,25 @@ class Imageupload
     }
     
     /**
-     * Convert results to collection.
+     * Return output.
      * 
      * @access private
-     * @return Collection
+     * @return mixed
      */
-    private function convertToCollection()
+    private function returnOutput()
     {
         $collection = new Collection($this->results);
         
-        return $collection;
+        switch ($this->output) {
+            case 'collection':
+                return $collection;
+                break;
+            case 'json':
+                return $collection->toJson();
+                break;
+            case 'array':
+            default:
+                return $collection->toArray();
+        }
     }
 }
