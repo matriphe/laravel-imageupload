@@ -223,7 +223,7 @@ class Imageupload
                 $newfilename = pathinfo($originalFilename, PATHINFO_FILENAME);
         }
 
-        $this->results['basename'] = $newfilename;
+        $this->results['basename'] = (string) $newfilename;
         $this->results['filename'] = $newfilename.'.'.$extension;
 
         return $this;
@@ -250,8 +250,8 @@ class Imageupload
 
             $image->save($targetFilepath, $this->quality);
 
-            $this->results['original_width'] = $image->width();
-            $this->results['original_height'] = $image->height();
+            $this->results['original_width'] = (int) $image->width();
+            $this->results['original_height'] = (int) $image->height();
             $this->results['original_filepath'] = $targetFilepath;
             $this->results['original_filedir'] = $this->getRelativePath($targetFilepath);
         } catch (Exception $e) {
@@ -273,7 +273,7 @@ class Imageupload
         $this->results['original_filepath'] = $this->getRelativePath($uploadedFile->getRealPath());
         $this->results['original_filedir'] = $uploadedFile->getRealPath();
         $this->results['original_extension'] = $uploadedFile->getClientOriginalExtension();
-        $this->results['original_filesize'] = $uploadedFile->getSize();
+        $this->results['original_filesize'] = (int) $uploadedFile->getSize();
         $this->results['original_mime'] = $uploadedFile->getMimeType();
 
         return $this;
@@ -317,10 +317,10 @@ class Imageupload
                 'filename' => pathinfo($targetFilepath, PATHINFO_BASENAME),
                 'filepath' => $targetFilepath,
                 'filedir' => $this->getRelativePath($targetFilepath),
-                'width' => $image->width(),
-                'height' => $image->height(),
-                'filesize' => $image->filesize(),
-                'is_squared' => $squared,
+                'width' => (int) $image->width(),
+                'height' => (int) $image->height(),
+                'filesize' => (int) $image->filesize(),
+                'is_squared' => (bool) $squared,
             ];
         } catch (Exception $e) {
             throw new ImageuploadException($e->getMessage());

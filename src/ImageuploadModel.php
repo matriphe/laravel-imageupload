@@ -21,6 +21,27 @@ class ImageuploadModel extends Model
         
         $this->setTable($tableName);
     }
+    
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'original_filename' => 'string', 
+        'original_filepath' => 'string', 
+        'original_filedir' => 'string',
+        'original_extension' => 'string', 
+        'original_mime' => 'string', 
+        'original_filesize' => 'integer',
+        'original_width' => 'integer', 
+        'original_height' => 'integer',
+        'path' => 'string', 
+        'dir' => 'string', 
+        'filename' => 'string', 
+        'basename' => 'string',
+        'exif' => 'array',
+    ];
 
     /**
      * The keys used in thumbnail.
@@ -28,8 +49,15 @@ class ImageuploadModel extends Model
      * @var array
      */
     protected $thumbnailKeys = [
-        'path', 'dir', 'filename', 'filepath', 'filedir', 'width', 'height',
-        'filesize',
+        'path' => 'string', 
+        'dir' => 'string', 
+        'filename' => 'string', 
+        'filepath' => 'string', 
+        'filedir' => 'string', 
+        'width' => 'integer', 
+        'height' => 'integer',
+        'filesize' => 'integer', 
+        'is_squared' => 'boolean',
     ];
 
     /**
@@ -61,12 +89,36 @@ class ImageuploadModel extends Model
         }
 
         foreach ($dimensions as $name => $dimension) {
-            foreach ($this->thumbnailKeys as $key) {
+            foreach ($this->thumbnailKeys as $key => $cast) {
                 array_push($fillable, $name.'_'.$key);
             }
         }
 
         return $fillable;
+    }
+    
+    /**
+     * Get the casts array.
+     *
+     * @return array
+     */
+    public function getCasts()
+    {
+        $this->casts = parent::getCasts();
+        
+        $dimensions = Config::get('imageupload.dimensions');
+
+        if (empty($dimensions) || ! is_array($dimensions)) {
+            return $this->casts;
+        }
+
+        foreach ($dimensions as $name => $dimension) {
+            foreach ($this->thumbnailKeys as $key => $cast) {
+                $this->casts[$name.'_'.$key] = $cast;
+            }
+        }
+        
+        return $this->casts;
     }
 
     /**

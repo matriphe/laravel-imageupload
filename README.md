@@ -800,6 +800,135 @@ Illuminate\Support\Collection Object
 )
 ```
 
+#### ImageuploadModel
+
+```php
+Matriphe\Imageupload\ImageuploadModel Object
+(
+    [thumbnailKeys:protected] => Array
+        (
+            [0] => path
+            [1] => dir
+            [2] => filename
+            [3] => filepath
+            [4] => filedir
+            [5] => width
+            [6] => height
+            [7] => filesize
+        )
+
+    [fillable:protected] => Array
+        (
+            [0] => original_filename
+            [1] => original_filepath
+            [2] => original_filedir
+            [3] => original_extension
+            [4] => original_mime
+            [5] => original_filesize
+            [6] => original_width
+            [7] => original_height
+            [8] => path
+            [9] => dir
+            [10] => filename
+            [11] => basename
+            [12] => exif
+        )
+
+    [connection:protected] => 
+    [table:protected] => image_uploads
+    [primaryKey:protected] => id
+    [perPage:protected] => 15
+    [incrementing] => 1
+    [timestamps] => 1
+    [attributes:protected] => Array
+        (
+            [original_filename] => IMG_20170619_195131.jpg
+            [original_filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/IMG_20170619_195131.jpg
+            [original_filedir] => uploads/images/IMG_20170619_195131.jpg
+            [original_extension] => jpg
+            [original_mime] => image/jpeg
+            [original_filesize] => 1379716
+            [original_width] => 2592
+            [original_height] => 4608
+            [exif] => {"FileName":"php19qj3X","FileDateTime":1500906046,"FileSize":1379716,"FileType":2,"MimeType":"image\/jpeg","SectionsFound":"ANY_TAG, IFD0, THUMBNAIL, EXIF, GPS, INTEROP","COMPUTED":{"html":"width=\"2592\" height=\"4608\"","Height":4608,"Width":2592,"IsColor":1,"ByteOrderMotorola":1,"ApertureFNumber":"f\/2.0","Thumbnail.FileType":2,"Thumbnail.MimeType":"image\/jpeg"},"Make":"Xiaomi","Model":"Redmi Note3","XResolution":"72\/1","YResolution":"72\/1","ResolutionUnit":2,"Software":"kenzo-user 6.0.1 MMB29M 7.6.7 release-keys","DateTime":"2017:06:19 19:51:31","YCbCrPositioning":1,"Exif_IFD_Pointer":234,"GPS_IFD_Pointer":718,"THUMBNAIL":{"Compression":6,"XResolution":"72\/1","YResolution":"72\/1","ResolutionUnit":2,"JPEGInterchangeFormat":898,"JPEGInterchangeFormatLength":15696},"ExposureTime":"1\/33","FNumber":"200\/100","ExposureProgram":0,"ISOSpeedRatings":854,"ExifVersion":"0220","DateTimeOriginal":"2017:06:19 19:51:31","DateTimeDigitized":"2017:06:19 19:51:31","ComponentsConfiguration":"\u0001\u0002\u0003\u0000","ShutterSpeedValue":"5058\/1000","ApertureValue":"200\/100","BrightnessValue":"300\/100","MeteringMode":1,"Flash":16,"FocalLength":"357\/100","SubSecTime":"123298","SubSecTimeOriginal":"123298","SubSecTimeDigitized":"123298","FlashPixVersion":"0100","ColorSpace":1,"ExifImageWidth":2592,"ExifImageLength":4608,"InteroperabilityOffset":687,"SensingMethod":2,"SceneType":"\u0001","ExposureMode":0,"WhiteBalance":0,"FocalLengthIn35mmFilm":4,"SceneCaptureType":0,"GPSAltitudeRef":"200\/100","GPSTimeStamp":["12\/1","51\/1","30\/1"],"GPSDateStamp":"2017:06:19","InterOperabilityIndex":"R98","InterOperabilityVersion":"0100"}
+            [path] => /Volumes/data/Development/php/laravel/51/public/uploads/images
+            [dir] => uploads/images
+            [filename] => IMG_20170619_195131.jpg
+            [basename] => IMG_20170619_195131
+            [updated_at] => 2017-07-24 21:20:53
+            [created_at] => 2017-07-24 21:20:53
+            [id] => 1
+        )
+
+    [original:protected] => Array
+        (
+            [original_filename] => IMG_20170619_195131.jpg
+            [original_filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/IMG_20170619_195131.jpg
+            [original_filedir] => uploads/images/IMG_20170619_195131.jpg
+            [original_extension] => jpg
+            [original_mime] => image/jpeg
+            [original_filesize] => 1379716
+            [original_width] => 2592
+            [original_height] => 4608
+            [exif] => {"FileName":"php19qj3X","FileDateTime":1500906046,"FileSize":1379716,"FileType":2,"MimeType":"image\/jpeg","SectionsFound":"ANY_TAG, IFD0, THUMBNAIL, EXIF, GPS, INTEROP","COMPUTED":{"html":"width=\"2592\" height=\"4608\"","Height":4608,"Width":2592,"IsColor":1,"ByteOrderMotorola":1,"ApertureFNumber":"f\/2.0","Thumbnail.FileType":2,"Thumbnail.MimeType":"image\/jpeg"},"Make":"Xiaomi","Model":"Redmi Note3","XResolution":"72\/1","YResolution":"72\/1","ResolutionUnit":2,"Software":"kenzo-user 6.0.1 MMB29M 7.6.7 release-keys","DateTime":"2017:06:19 19:51:31","YCbCrPositioning":1,"Exif_IFD_Pointer":234,"GPS_IFD_Pointer":718,"THUMBNAIL":{"Compression":6,"XResolution":"72\/1","YResolution":"72\/1","ResolutionUnit":2,"JPEGInterchangeFormat":898,"JPEGInterchangeFormatLength":15696},"ExposureTime":"1\/33","FNumber":"200\/100","ExposureProgram":0,"ISOSpeedRatings":854,"ExifVersion":"0220","DateTimeOriginal":"2017:06:19 19:51:31","DateTimeDigitized":"2017:06:19 19:51:31","ComponentsConfiguration":"\u0001\u0002\u0003\u0000","ShutterSpeedValue":"5058\/1000","ApertureValue":"200\/100","BrightnessValue":"300\/100","MeteringMode":1,"Flash":16,"FocalLength":"357\/100","SubSecTime":"123298","SubSecTimeOriginal":"123298","SubSecTimeDigitized":"123298","FlashPixVersion":"0100","ColorSpace":1,"ExifImageWidth":2592,"ExifImageLength":4608,"InteroperabilityOffset":687,"SensingMethod":2,"SceneType":"\u0001","ExposureMode":0,"WhiteBalance":0,"FocalLengthIn35mmFilm":4,"SceneCaptureType":0,"GPSAltitudeRef":"200\/100","GPSTimeStamp":["12\/1","51\/1","30\/1"],"GPSDateStamp":"2017:06:19","InterOperabilityIndex":"R98","InterOperabilityVersion":"0100"}
+            [path] => /Volumes/data/Development/php/laravel/51/public/uploads/images
+            [dir] => uploads/images
+            [filename] => IMG_20170619_195131.jpg
+            [basename] => IMG_20170619_195131
+            [updated_at] => 2017-07-24 21:20:53
+            [created_at] => 2017-07-24 21:20:53
+            [id] => 1
+        )
+
+    [relations:protected] => Array
+        (
+        )
+
+    [hidden:protected] => Array
+        (
+        )
+
+    [visible:protected] => Array
+        (
+        )
+
+    [appends:protected] => Array
+        (
+        )
+
+    [guarded:protected] => Array
+        (
+            [0] => *
+        )
+
+    [dates:protected] => Array
+        (
+        )
+
+    [dateFormat:protected] => 
+    [casts:protected] => Array
+        (
+        )
+
+    [touches:protected] => Array
+        (
+        )
+
+    [observables:protected] => Array
+        (
+        )
+
+    [with:protected] => Array
+        (
+        )
+
+    [morphClass:protected] => 
+    [exists] => 1
+    [wasRecentlyCreated] => 1
+)
+```
+
+
 ## Changelog
 
 ### Version 6.x
