@@ -22,10 +22,12 @@ The older (stable) version was using [Imagine library](https://imagine.readthedo
     * [Route Example](#route-example)
     * [View](#view)
   * [Usage](#usage)
+    * [Set Output](#set-output)
     * [Example](#example)
     * [Output Example](#output-example)
       * [JSON](#json)
       * [Array](#array)
+      * [Collection](#collection)
   * [Changelog](#changelog)
     * [Version 6\.x](#version-6x)
     * [Version 5\.x and 4\.2\.x](#version-5x-and-42x)
@@ -566,6 +568,219 @@ Array
                     [height] => 400
                     [filesize] => 1379716
                     [is_squared] => 
+                )
+
+        )
+
+)
+```
+
+#### Collection
+
+```php
+Illuminate\Support\Collection Object
+(
+    [items:protected] => Array
+        (
+            [original_filename] => IMG_20170619_195131.jpg
+            [original_filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/IMG_20170619_195131.jpg
+            [original_filedir] => uploads/images/IMG_20170619_195131.jpg
+            [original_extension] => jpg
+            [original_mime] => image/jpeg
+            [original_filesize] => 1379716
+            [original_width] => 2592
+            [original_height] => 4608
+            [exif] => Array
+                (
+                    [FileName] => phpGacSlt
+                    [FileDateTime] => 1500895792
+                    [FileSize] => 1379716
+                    [FileType] => 2
+                    [MimeType] => image/jpeg
+                    [SectionsFound] => ANY_TAG, IFD0, THUMBNAIL, EXIF, GPS, INTEROP
+                    [COMPUTED] => Array
+                        (
+                            [html] => width="2592" height="4608"
+                            [Height] => 4608
+                            [Width] => 2592
+                            [IsColor] => 1
+                            [ByteOrderMotorola] => 1
+                            [ApertureFNumber] => f/2.0
+                            [Thumbnail.FileType] => 2
+                            [Thumbnail.MimeType] => image/jpeg
+                        )
+
+                    [Make] => Xiaomi
+                    [Model] => Redmi Note3
+                    [XResolution] => 72/1
+                    [YResolution] => 72/1
+                    [ResolutionUnit] => 2
+                    [Software] => kenzo-user 6.0.1 MMB29M 7.6.7 release-keys
+                    [DateTime] => 2017:06:19 19:51:31
+                    [YCbCrPositioning] => 1
+                    [Exif_IFD_Pointer] => 234
+                    [GPS_IFD_Pointer] => 718
+                    [THUMBNAIL] => Array
+                        (
+                            [Compression] => 6
+                            [XResolution] => 72/1
+                            [YResolution] => 72/1
+                            [ResolutionUnit] => 2
+                            [JPEGInterchangeFormat] => 898
+                            [JPEGInterchangeFormatLength] => 15696
+                        )
+
+                    [ExposureTime] => 1/33
+                    [FNumber] => 200/100
+                    [ExposureProgram] => 0
+                    [ISOSpeedRatings] => 854
+                    [ExifVersion] => 0220
+                    [DateTimeOriginal] => 2017:06:19 19:51:31
+                    [DateTimeDigitized] => 2017:06:19 19:51:31
+                    [ComponentsConfiguration] => 
+                    [ShutterSpeedValue] => 5058/1000
+                    [ApertureValue] => 200/100
+                    [BrightnessValue] => 300/100
+                    [MeteringMode] => 1
+                    [Flash] => 16
+                    [FocalLength] => 357/100
+                    [SubSecTime] => 123298
+                    [SubSecTimeOriginal] => 123298
+                    [SubSecTimeDigitized] => 123298
+                    [FlashPixVersion] => 0100
+                    [ColorSpace] => 1
+                    [ExifImageWidth] => 2592
+                    [ExifImageLength] => 4608
+                    [InteroperabilityOffset] => 687
+                    [SensingMethod] => 2
+                    [SceneType] => 
+                    [ExposureMode] => 0
+                    [WhiteBalance] => 0
+                    [FocalLengthIn35mmFilm] => 4
+                    [SceneCaptureType] => 0
+                    [GPSAltitudeRef] => 200/100
+                    [GPSTimeStamp] => Array
+                        (
+                            [0] => 12/1
+                            [1] => 51/1
+                            [2] => 30/1
+                        )
+
+                    [GPSDateStamp] => 2017:06:19
+                    [InterOperabilityIndex] => R98
+                    [InterOperabilityVersion] => 0100
+                )
+
+            [path] => /Volumes/data/Development/php/laravel/51/public/uploads/images
+            [dir] => uploads/images
+            [filename] => IMG_20170619_195131.jpg
+            [basename] => IMG_20170619_195131
+            [dimensions] => Array
+                (
+                    [square50] => Array
+                        (
+                            [path] => /Volumes/data/Development/php/laravel/51/public/uploads/images
+                            [dir] => uploads/images/IMG_20170619_195131_square50.jpg
+                            [filename] => IMG_20170619_195131_square50.jpg
+                            [filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/IMG_20170619_195131_square50.jpg
+                            [filedir] => uploads/images/IMG_20170619_195131_square50.jpg
+                            [width] => 50
+                            [height] => 50
+                            [filesize] => 1379716
+                            [is_squared] => 1
+                        )
+
+                    [square100] => Array
+                        (
+                            [path] => /Volumes/data/Development/php/laravel/51/public/uploads/images
+                            [dir] => uploads/images/IMG_20170619_195131_square100.jpg
+                            [filename] => IMG_20170619_195131_square100.jpg
+                            [filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/IMG_20170619_195131_square100.jpg
+                            [filedir] => uploads/images/IMG_20170619_195131_square100.jpg
+                            [width] => 100
+                            [height] => 100
+                            [filesize] => 1379716
+                            [is_squared] => 1
+                        )
+
+                    [square200] => Array
+                        (
+                            [path] => /Volumes/data/Development/php/laravel/51/public/uploads/images
+                            [dir] => uploads/images/IMG_20170619_195131_square200.jpg
+                            [filename] => IMG_20170619_195131_square200.jpg
+                            [filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/IMG_20170619_195131_square200.jpg
+                            [filedir] => uploads/images/IMG_20170619_195131_square200.jpg
+                            [width] => 200
+                            [height] => 200
+                            [filesize] => 1379716
+                            [is_squared] => 1
+                        )
+
+                    [square400] => Array
+                        (
+                            [path] => /Volumes/data/Development/php/laravel/51/public/uploads/images
+                            [dir] => uploads/images/IMG_20170619_195131_square400.jpg
+                            [filename] => IMG_20170619_195131_square400.jpg
+                            [filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/IMG_20170619_195131_square400.jpg
+                            [filedir] => uploads/images/IMG_20170619_195131_square400.jpg
+                            [width] => 400
+                            [height] => 400
+                            [filesize] => 1379716
+                            [is_squared] => 1
+                        )
+
+                    [size50] => Array
+                        (
+                            [path] => /Volumes/data/Development/php/laravel/51/public/uploads/images
+                            [dir] => uploads/images/IMG_20170619_195131_size50.jpg
+                            [filename] => IMG_20170619_195131_size50.jpg
+                            [filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/IMG_20170619_195131_size50.jpg
+                            [filedir] => uploads/images/IMG_20170619_195131_size50.jpg
+                            [width] => 28
+                            [height] => 50
+                            [filesize] => 1379716
+                            [is_squared] => 
+                        )
+
+                    [size100] => Array
+                        (
+                            [path] => /Volumes/data/Development/php/laravel/51/public/uploads/images
+                            [dir] => uploads/images/IMG_20170619_195131_size100.jpg
+                            [filename] => IMG_20170619_195131_size100.jpg
+                            [filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/IMG_20170619_195131_size100.jpg
+                            [filedir] => uploads/images/IMG_20170619_195131_size100.jpg
+                            [width] => 56
+                            [height] => 100
+                            [filesize] => 1379716
+                            [is_squared] => 
+                        )
+
+                    [size200] => Array
+                        (
+                            [path] => /Volumes/data/Development/php/laravel/51/public/uploads/images
+                            [dir] => uploads/images/IMG_20170619_195131_size200.jpg
+                            [filename] => IMG_20170619_195131_size200.jpg
+                            [filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/IMG_20170619_195131_size200.jpg
+                            [filedir] => uploads/images/IMG_20170619_195131_size200.jpg
+                            [width] => 112
+                            [height] => 200
+                            [filesize] => 1379716
+                            [is_squared] => 
+                        )
+
+                    [size400] => Array
+                        (
+                            [path] => /Volumes/data/Development/php/laravel/51/public/uploads/images
+                            [dir] => uploads/images/IMG_20170619_195131_size400.jpg
+                            [filename] => IMG_20170619_195131_size400.jpg
+                            [filepath] => /Volumes/data/Development/php/laravel/51/public/uploads/images/IMG_20170619_195131_size400.jpg
+                            [filedir] => uploads/images/IMG_20170619_195131_size400.jpg
+                            [width] => 225
+                            [height] => 400
+                            [filesize] => 1379716
+                            [is_squared] => 
+                        )
+
                 )
 
         )
