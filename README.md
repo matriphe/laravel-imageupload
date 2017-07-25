@@ -39,7 +39,7 @@ Upload image easily using Laravel's build in function and resize it automaticall
 
  Laravel  | Imageupload | Installation Command
 :---------|:------------|:--------------------
- 4.2.x    | [4.x](https://github.com/matriphe/laravel-imageupload/blob/laravel42/README.md) (obselete) | `composer require "matriphe/imageupload:4.2.*"`
+ 4.2.x    | [4.x](https://github.com/matriphe/laravel-imageupload/blob/laravel42/README.md) (obsolete) | `composer require "matriphe/imageupload:4.2.*"`
  5.0.x / 5.1.x / 5.2.x / 5.3.x / 5.4.x   | [5.x](https://github.com/matriphe/laravel-imageupload/blob/laravel5/README.md) (stable) | `composer require "matriphe/imageupload:5.*"`
  5.0.x / 5.1.x / 5.2.x / 5.3.x / 5.4.x    | 6.0 | `composer require "matriphe/imageupload:6.0"`
  5.2.x / 5.3.x / 5.4.x    | 6.1.x (latest) | `composer require "matriphe/imageupload:6.1.*"`
