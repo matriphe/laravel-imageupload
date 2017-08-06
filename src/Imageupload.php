@@ -310,6 +310,8 @@ class Imageupload
                 });
             }
 
+            $image->save($targetFilepath, $this->quality);
+
             return [
                 'path' => dirname($targetFilepath),
                 'dir' => $this->getRelativePath($targetFilepath),
