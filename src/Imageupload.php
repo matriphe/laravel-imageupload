@@ -10,6 +10,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageManager;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 class Imageupload
 {
@@ -249,6 +250,9 @@ class Imageupload
 
             $image->save($targetFilepath, $this->quality);
 
+            // Save to s3
+            $this->saveToS3($image, $targetFilepath);
+
             $this->results['original_width'] = (int) $image->width();
             $this->results['original_height'] = (int) $image->height();
             $this->results['original_filepath'] = $targetFilepath;
@@ -311,6 +315,9 @@ class Imageupload
             }
 
             $image->save($targetFilepath, $this->quality);
+
+            // Save to s3
+            $this->saveToS3($image, $targetFilepath);
 
             return [
                 'path' => dirname($targetFilepath),
@@ -409,5 +416,20 @@ class Imageupload
         }
 
         return $model->firstOrCreate($input);
+    }
+
+    private function saveToS3($image, $targetFilepath) {
+        // Save to s3
+        if (config('imageupload.s3_enabled') === true) {
+            $resource = $image->stream()->detach();
+            $s3_filename = config('imageupload.s3_path') . '/' . basename($targetFilepath);
+            $path = Storage::disk('s3')->put(
+                $s3_filename,
+                $resource,
+                'public'
+            );
+            $url = Storage::disk('s3')->url($s3_filename);
+            $this->results['s3_url'] = $url;
+        }
     }
 }
