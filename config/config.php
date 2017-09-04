@@ -24,6 +24,22 @@ return [
   'path' => public_path('uploads/images'),
 
   /*
+   * Upload images to s3. If TRUE will use s3 disk to store images, if FALSE then s3 disk will not be used.
+   *
+   * Example:
+   *     - TRUE: Images will be saved to s3 and the local filesystem
+   *     - FALSE (default): Images will be save to local filesystem only`
+   */
+  's3_enabled' => true,
+
+  /*
+   * Upload directory for s3.
+   *
+   * Default: uploads/images
+   */
+  's3_path' => 'uploads/images',
+
+  /*
     * Use original name. If set to false, will use hashed name.
     *
     * Options:
