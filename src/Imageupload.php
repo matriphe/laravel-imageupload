@@ -10,6 +10,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageManager;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 class Imageupload
 {
@@ -249,10 +250,14 @@ class Imageupload
 
             $image->save($targetFilepath, $this->quality);
 
+            // Save to s3
+            $s3_url = $this->saveToS3($image, $targetFilepath);
+
             $this->results['original_width'] = (int) $image->width();
             $this->results['original_height'] = (int) $image->height();
             $this->results['original_filepath'] = $targetFilepath;
             $this->results['original_filedir'] = $this->getRelativePath($targetFilepath);
+            $this->results['s3_url'] = $s3_url;
         } catch (Exception $e) {
             throw new ImageuploadException($e->getMessage());
         }
@@ -312,12 +317,16 @@ class Imageupload
 
             $image->save($targetFilepath, $this->quality);
 
+            // Save to s3
+            $s3_url = $this->saveToS3($image, $targetFilepath);
+
             return [
                 'path' => dirname($targetFilepath),
                 'dir' => $this->getRelativePath($targetFilepath),
                 'filename' => pathinfo($targetFilepath, PATHINFO_BASENAME),
                 'filepath' => $targetFilepath,
                 'filedir' => $this->getRelativePath($targetFilepath),
+                's3_url' => $s3_url,
                 'width' => (int) $image->width(),
                 'height' => (int) $image->height(),
                 'filesize' => (int) $image->filesize(),
@@ -409,5 +418,21 @@ class Imageupload
         }
 
         return $model->firstOrCreate($input);
+    }
+
+    private function saveToS3($image, $targetFilepath) {
+        $url = '';
+        // Save to s3
+        if (config('imageupload.s3_enabled') === true) {
+            $resource = $image->stream()->detach();
+            $s3_filename = config('imageupload.s3_path') . '/' . basename($targetFilepath);
+            $path = Storage::disk('s3')->put(
+                $s3_filename,
+                $resource,
+                'public'
+            );
+            $url = Storage::disk('s3')->url($s3_filename);
+        }
+        return $url;
     }
 }
