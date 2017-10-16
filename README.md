@@ -42,7 +42,7 @@ Upload image easily using Laravel's build in function and resize it automaticall
  4.2.x    | [4.x](https://github.com/matriphe/laravel-imageupload/blob/laravel42/README.md) (obsolete) | `composer require "matriphe/imageupload:4.2.*"`
  5.0.x / 5.1.x / 5.2.x / 5.3.x / 5.4.x   | [5.x](https://github.com/matriphe/laravel-imageupload/blob/laravel5/README.md) (stable) | `composer require "matriphe/imageupload:5.*"`
  5.0.x / 5.1.x / 5.2.x / 5.3.x / 5.4.x    | 6.0 | `composer require "matriphe/imageupload:6.0"`
- 5.2.x / 5.3.x / 5.4.x    | 6.1.x (latest) | `composer require "matriphe/imageupload:6.1.*"`
+ 5.2.x / 5.3.x / 5.4.x / 5.5.x   | 6.1.x (latest) | `composer require "matriphe/imageupload:6.1.*"`
 
 The old version was following Laravel version. Now this package will use [semantic version (semver)](http://semver.org/) start from version 6.0.
 
@@ -60,7 +60,7 @@ Or you can simply run this command from your project directory.
 composer require "matriphe/imageupload"
 ```
 
-### Laravel 5.x Installation
+### Laravel 5.0, 5.1, 5.2, 5.3, and 5.4
 
 Open the `config/app.php` and add this line in `providers` section.
 
@@ -73,6 +73,11 @@ Still on `config/app.php` file, add this line in `aliases` section.
 ```php
 'Imageupload' => Matriphe\Imageupload\ImageuploadFacade::class,
 ```
+
+### Laravel 5.5
+
+Nothing to do. It used Laravel auto package discovery feature.
+
 
 ## Publish Configuration and Migration File
 
@@ -91,7 +96,7 @@ Please check the `config/imageupload.php` for more detail. You can use `.env` to
 If you want to publish the configuration file only, run this command.
 
 ```bash
-php artisan vendor:publish --provider="Matriphe\Imageupload\ImageuploadServiceProvider" --tag=config
+php artisan vendor:publish --provider="Matriphe\Imageupload\ImageuploadServiceProvider" --tag=imageupload-config
 ```
 
 ### Migration
@@ -101,7 +106,7 @@ By default, a migration file will create `image_uploads` table. Check the file a
 If you want to publish the migration file only, run this command.
 
 ```bash
-php artisan vendor:publish --provider="Matriphe\Imageupload\ImageuploadServiceProvider --tag=migrations"
+php artisan vendor:publish --provider="Matriphe\Imageupload\ImageuploadServiceProvider --tag=imageupload-migrations"
 ```
 
 ### Model

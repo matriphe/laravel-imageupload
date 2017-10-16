@@ -40,7 +40,10 @@
     "laravel":{  
       "providers":[  
         "Matriphe\\Imageupload\\ImageuploadServiceProvider"
-      ]
+      ],
+      "aliases": {
+        "Imageupload": "Matriphe\\Imageupload\\ImageuploadFacade"
+      }
     }
   },
   "config":{  
