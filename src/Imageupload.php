@@ -101,6 +101,7 @@ class Imageupload
         $this->library = Config::get('imageupload.library', 'gd');
         $this->quality = Config::get('imageupload.quality', 90);
         $this->uploadpath = Config::get('imageupload.path', public_path('uploads/images'));
+        $this->s3_enabled = Config::get('imageupload.s3_enabled', false);
         $this->newfilename = Config::get('imageupload.newfilename', 'original');
         $this->dimensions = Config::get('imageupload.dimensions');
         $this->suffix = Config::get('imageupload.suffix', true);
@@ -250,8 +251,11 @@ class Imageupload
 
             $image->save($targetFilepath, $this->quality);
 
-            // Save to s3
-            $s3_url = $this->saveToS3($image, $targetFilepath);
+            // Save to s3 if s3 is enabled
+            if(true === $this->s3_enabled) {
+                $s3_url = $this->saveToS3($image, $targetFilepath);
+                $this->results['s3_url'] = $s3_url;
+            }
 
             $this->results['original_width'] = (int) $image->width();
             $this->results['original_height'] = (int) $image->height();
@@ -317,21 +321,26 @@ class Imageupload
 
             $image->save($targetFilepath, $this->quality);
 
-            // Save to s3
-            $s3_url = $this->saveToS3($image, $targetFilepath);
-
-            return [
+            $result = [
                 'path' => dirname($targetFilepath),
                 'dir' => $this->getRelativePath($targetFilepath),
                 'filename' => pathinfo($targetFilepath, PATHINFO_BASENAME),
                 'filepath' => $targetFilepath,
                 'filedir' => $this->getRelativePath($targetFilepath),
-                's3_url' => $s3_url,
                 'width' => (int) $image->width(),
                 'height' => (int) $image->height(),
                 'filesize' => (int) $image->filesize(),
                 'is_squared' => (bool) $squared,
             ];
+            
+            // Save to s3
+            if($this->s3_enabled) {
+                $s3_url = $this->saveToS3($image, $targetFilepath);
+                $result['s3_url'] = $s3_url;
+            }
+            
+            return $result;
+            
         } catch (Exception $e) {
             throw new ImageuploadException($e->getMessage());
         }
@@ -416,8 +425,14 @@ class Imageupload
                 $input[$key.'_'.$k] = $v;
             }
         }
-
-        return $model->firstOrCreate($input);
+        
+        return $model->firstOrCreate([
+            'original_filesize' => $input['original_filesize'],
+            'original_width' => $input['original_filesize'],
+            'original_height' => $input['original_filesize'],
+            'path' => $input['path'],
+            'filename' => $input['filename']
+        ], $input);
     }
 
     private function saveToS3($image, $targetFilepath) {
