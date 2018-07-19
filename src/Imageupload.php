@@ -334,7 +334,7 @@ class Imageupload
             ];
             
             // Save to s3
-            if($this->s3_enabled) {
+            if(true === $this->s3_enabled) {
                 $s3_url = $this->saveToS3($image, $targetFilepath);
                 $result['s3_url'] = $s3_url;
             }
