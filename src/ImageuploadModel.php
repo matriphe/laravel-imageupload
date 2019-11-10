@@ -2,8 +2,8 @@
 
 namespace Matriphe\Imageupload;
 
-use Config;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Config;
 
 class ImageuploadModel extends Model
 {

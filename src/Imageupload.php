@@ -3,14 +3,14 @@
 namespace Matriphe\Imageupload;
 
 use Carbon\Carbon;
-use Config;
 use Exception;
-use File;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageManager;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 
 class Imageupload
 {
@@ -420,12 +420,13 @@ class Imageupload
         return $model->firstOrCreate($input);
     }
 
-    private function saveToS3($image, $targetFilepath) {
+    private function saveToS3($image, $targetFilepath)
+    {
         $url = '';
         // Save to s3
         if (config('imageupload.s3_enabled') === true) {
             $resource = $image->stream()->detach();
-            $s3_filename = config('imageupload.s3_path') . '/' . basename($targetFilepath);
+            $s3_filename = config('imageupload.s3_path').'/'.basename($targetFilepath);
             $path = Storage::disk('s3')->put(
                 $s3_filename,
                 $resource,
@@ -433,6 +434,7 @@ class Imageupload
             );
             $url = Storage::disk('s3')->url($s3_filename);
         }
+
         return $url;
     }
 }
